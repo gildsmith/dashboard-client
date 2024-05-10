@@ -49,23 +49,12 @@ const router = createRouter({
  | authentication-based routing restrictions.
  */
 
-router.beforeEach(async (to) => {
+router.beforeEach(async () => {
     const userStore = useUserStore()
     await userStore.fetch()
 
-    const featuresStore = useFeaturesStore()
-    await featuresStore.fetch()
-
-    if (typeof to.meta.feature !== 'undefined') {
-        // todo requires function; this must not collide with following statements
-    }
-
-    if (to.meta.authenticated === false && userStore.authenticated) {
-        return {name: 'profile.dashboard.index'}
-    }
-
-    if (to.meta.authenticated === true && !userStore.authenticated) {
-        return {name: 'profile.authentication'}
+    if (!userStore.authenticated || userStore.user.role.name !== 'admin') {
+        window.location.href = '/'
     }
 })
 

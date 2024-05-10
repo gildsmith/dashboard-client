@@ -5,11 +5,9 @@ import {computed} from 'vue'
 const children = useRouter().getRoutes() || []
 const navChildren = computed(() => {
     return children.filter(child => {
-        return child.meta?.name.length > 1
-    })
+        return child.meta?.name?.length > 1
+    }).reverse()
 })
-
-console.log(navChildren)
 </script>
 
 <template>
@@ -40,11 +38,12 @@ console.log(navChildren)
 }
 
 .dashboardNavigationUrl {
-    @apply flex items-center gap-2 px-4 py-2 bg-slate-100 rounded;
+    @apply flex items-center gap-2 px-4 py-2 rounded text-slate-400;
 }
 
+/*noinspection CssUnusedSymbol*/
 .dashboardNavigationUrl.router-link-active {
-    @apply bg-slate-100 text-slate-400 font-semibold;
+    @apply font-semibold bg-slate-100;
 }
 
 .dashboardNavigationUrl.router-link-active > span {
