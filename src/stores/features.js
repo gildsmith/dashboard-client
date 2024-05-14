@@ -17,7 +17,7 @@ export const useFeaturesStore = defineStore('features', {
                 return
 
             const response = await axios.get('/_gildsmith/features')
-            this.user = response.data
+            this.features = response.data
             this.fetched = true
         },
     },

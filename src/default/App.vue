@@ -15,7 +15,7 @@ const navChildren = computed(() => {
         <div class="dashboardNavigation">
             <div class="navigationLogo">GILDSMITH</div>
             <RouterLink v-for="(child, key) in navChildren" :key="key" :to="{name: child.name}" class="dashboardNavigationUrl">
-                <component v-if="child.meta.icon" :is="child.meta.icon" size="20" stroke="2.5"/>
+                <component :is="child.meta.icon" v-if="child.meta.icon" size="20" stroke="2.5"/>
                 <span>{{ child.meta.name }}</span>
             </RouterLink>
         </div>
@@ -28,13 +28,13 @@ const navChildren = computed(() => {
     </div>
 </template>
 
-<style scoped>
+<style>
 .dashboardContainer {
-    @apply min-h-full min-w-full flex bg-slate-50;
+    @apply min-h-full grid grid-cols-6 bg-slate-50 overflow-x-hidden;
 }
 
 .dashboardNavigation {
-    @apply min-h-full max-w-64 w-full flex flex-col justify-start p-4;
+    @apply flex flex-col justify-start p-4;
 }
 
 .dashboardNavigationUrl {
@@ -55,10 +55,46 @@ const navChildren = computed(() => {
 }
 
 .dashboardView {
-    @apply min-h-full flex-1 bg-white my-4 p-4 rounded-xl border shadow-shallow;
+    @apply col-span-4 bg-white my-4 p-4 rounded-xl border shadow-shallow;
 }
 
 .dashboardNotifications {
-    @apply min-h-full max-w-80 w-full p-4;
+    @apply p-4;
+}
+
+/*
+ * Following items are reusable.
+ */
+.dashboardHeader {
+    @apply max-w-2xl grid gap-4;
+}
+
+.dashboardHeader > span {
+    @apply text-slate-700 font-medium;
+}
+
+
+::-webkit-scrollbar {
+    height: 1rem;
+    width: .5rem
+}
+
+::-webkit-scrollbar:horizontal {
+    height: .5rem;
+    width: 1rem
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-slate-200;
+    border-color: #ffffff;
+    border-width: 1px
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-300;
 }
 </style>
