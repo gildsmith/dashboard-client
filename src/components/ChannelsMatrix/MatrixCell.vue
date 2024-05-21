@@ -6,6 +6,8 @@ const props = defineProps(['currency', 'language'])
 const key = computed(() => {
     return props.language?.code + '-' + props.currency?.code
 })
+
+// TODO code checkbox functionality
 </script>
 
 <template>

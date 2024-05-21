@@ -1,4 +1,5 @@
 import './bootstrap/axios.js'
+import './bootstrap/echo.js'
 import i18n from './bootstrap/i18n.js'
 import router from './bootstrap/router.js'
 import appComponent from './bootstrap/app.js'

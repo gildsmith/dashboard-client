@@ -1,13 +1,31 @@
 <script setup>
-import {onMounted, ref} from 'vue'
+import {onMounted, onUnmounted, ref} from 'vue'
 import ChannelsMatrix from '../components/ChannelsMatrix.vue'
 
-const channels = ref({})
+const channels = ref([])
 
 onMounted(() => {
     axios.get('/api/channels').then(response => {
         channels.value = response.data
     })
+
+    let updateChannel = e => {
+        channels.value = channels.value.map(channel =>
+            channel.id === e.channel.id ? e.channel : channel
+        )
+    }
+    window.Echo.private('dashboard').listen('.Gildsmith\\HubApi\\Events\\CurrencyAttached', updateChannel)
+    window.Echo.private('dashboard').listen('.Gildsmith\\HubApi\\Events\\CurrencyDetached', updateChannel)
+    window.Echo.private('dashboard').listen('.Gildsmith\\HubApi\\Events\\LanguageAttached', updateChannel)
+    window.Echo.private('dashboard').listen('.Gildsmith\\HubApi\\Events\\LanguageDetached', updateChannel)
+})
+
+onUnmounted(() => {
+    window.Echo.private('dashboard')
+        .stopListening('.Gildsmith\\HubApi\\Events\\CurrencyAttached')
+        .stopListening('.Gildsmith\\HubApi\\Events\\CurrencyDetached')
+        .stopListening('.Gildsmith\\HubApi\\Events\\LanguageAttached')
+        .stopListening('.Gildsmith\\HubApi\\Events\\LanguageDetached')
 })
 </script>
 

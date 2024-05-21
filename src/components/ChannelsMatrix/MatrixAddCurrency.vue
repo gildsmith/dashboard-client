@@ -20,13 +20,15 @@ const dropdownOptions = computed(() => currenciesStore.currencies.map(currency =
 })))
 
 function click(v, t) {
-    t ? axios.post('/api/channels/channel/1/language/' + v)
-        : axios.delete('/api/channels/channel/1/language/' + v)
+    let endpoint = '/api/channels/channel/' + props.channel.id + '/currency/' + v
+
+    t ? axios.post(endpoint)
+        : axios.delete(endpoint)
 }
 </script>
 
 <template>
-    <td :rowspan="span">
+    <td :rowspan="span" class="matrix">
         <div class="hitbox" @click="openModal = true">
             <div class="buttonWrapper">
                 <IconSquarePlus size="16" stroke="2"/>
@@ -50,6 +52,10 @@ function click(v, t) {
 </template>
 
 <style scoped>
+.matrix {
+    @apply text-center;
+}
+
 .hitbox {
     @apply inline-flex items-center justify-center p-4 cursor-pointer text-blue-700 text-sm font-medium;
 }

@@ -20,8 +20,10 @@ const dropdownOptions = computed(() => languagesStore.languages.map(language => 
 })))
 
 function click(v, t) {
-    t ? axios.post('/api/channels/channel/1/language/' + v)
-        : axios.delete('/api/channels/channel/1/language/' + v)
+    let endpoint = '/api/channels/channel/' + props.channel.id + '/language/' + v
+
+    t ? axios.post(endpoint)
+        : axios.delete(endpoint)
 }
 </script>
 

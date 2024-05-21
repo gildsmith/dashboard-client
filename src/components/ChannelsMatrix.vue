@@ -51,11 +51,9 @@ function key(l, c) {
     @apply px-4 whitespace-nowrap border border-blue-100;
 }
 
+.placeholder,
 .language {
-    @apply bg-blue-100 sticky left-0 text-center px-4;
+    @apply bg-blue-100 sticky left-0 text-center px-4 border border-blue-100;
 }
 
-.placeholder {
-    @apply bg-blue-100;
-}
 </style>
