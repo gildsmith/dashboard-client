@@ -11,6 +11,11 @@ const props = defineProps({
         required: true,
         default: () => [],
     },
+    hideChecked: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
 })
 
 /*
@@ -18,9 +23,13 @@ const props = defineProps({
  * of values, allowing for case-insensitive matching on both code and full name.
  */
 const computedOptions = computed(() => {
+    let options = props.hideChecked
+        ? props.options.filter(option => !isChecked(option))
+        : props.options
+
     return input.value.length === 0
-        ? props.options
-        : props.options.filter(option => {
+        ? options
+        : options.filter(option => {
             return option.tokens.some(token => token.toLowerCase().includes(input.value.toLowerCase()))
         })
 })
@@ -41,15 +50,23 @@ function clickOption(value) {
     }
 }
 
+/**
+ * Todo this allows submitting the input on hitting enter
+ */
+function submitOption() {
+    if (computedOptions.value.length > 0)
+        clickOption(computedOptions.value[0].value)
+}
+
 /*
  * todo This method checks whether the model equals or contains (in case of arrays) the value.
  */
 function isChecked(value) {
     if (Number.isInteger(model.value)) {
-        return model.value === value
+        return model.value === value.value
 
     } else if (Array.isArray(model.value)) {
-        return model.value.includes(value)
+        return model.value.includes(value.value)
     }
     return false
 }
@@ -57,12 +74,12 @@ function isChecked(value) {
 
 <template>
     <div class="dropdownContainer">
-        <input v-model="input" class="input" type="text"/>
+        <input v-model="input" class="input" type="text" @keyup.enter="submitOption"/>
         <input v-model="model" type="hidden"/>
         <div class="dropdownList">
             <div v-for="(o, k) in computedOptions" :key="k" class="dropdownItem" @click="clickOption(o.value)">
-                <IconSquareCheck v-if="isChecked(o.value)" size="16" stroke="2"/>
-                <IconSquare v-if="!isChecked(o.value)" size="16" stroke="2"/>
+                <IconSquareCheck v-if="!hideChecked && isChecked(o.value)" size="16" stroke="2"/>
+                <IconSquare v-if="!hideChecked && !isChecked(o.value)" size="16" stroke="2"/>
                 <span>{{ o.name }}</span>
             </div>
         </div>

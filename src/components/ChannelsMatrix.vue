@@ -1,10 +1,10 @@
 <script setup>
 import MatrixCell from './ChannelsMatrix/MatrixCell.vue'
-import MatrixAddLanguage from './ChannelsMatrix/MatrixAddLanguage.vue'
-import MatrixAddCurrency from './ChannelsMatrix/MatrixAddCurrency.vue'
-import {useI18n} from 'vue-i18n'
+import DetachableCurrencyCell from './ChannelsMatrix/DetachableCurrencyCell.vue'
+import AttachCurrencyCell from './ChannelsMatrix/AttachCurrencyCell.vue'
+import DetachableLanguageCell from './ChannelsMatrix/DetachableLanguageCell.vue'
+import AttachLanguageCell from './ChannelsMatrix/AttachLanguageCell.vue'
 
-const {t} = useI18n()
 defineProps(['channel'])
 
 function key(l, c) {
@@ -16,19 +16,16 @@ function key(l, c) {
     <div class="channelMatrixContainer">
         <table class="channelMatrixTable">
             <tr class="row">
-                <td class="placeholder"/>
-                <th v-for="(currency, key) in channel.currencies" :key="key" class="currency">
-                    <div>{{ t('currency.' + currency.code.toLowerCase()) }}</div>
-                    <div>({{ currency.code }})</div>
-                </th>
-                <MatrixAddCurrency :span="channel.languages.length + 1" :channel="channel"/>
+                <td class="placeholder" data-col="1">Language</td>
+                <DetachableCurrencyCell v-for="(currency, key) in channel.currencies" :key="key" :currency="currency"/>
+                <AttachCurrencyCell :channel="channel" :span="channel.languages.length + 1"/>
             </tr>
             <tr class="row" v-for="(language, l) in channel.languages" :key="language">
-                <th class="language">{{ t('language.' + language.code) }}</th>
+                <DetachableLanguageCell :language="language"/>
                 <MatrixCell v-for="(currency, c) in channel.currencies" :key="key(l, c)" :currency="currency" :language="language"/>
             </tr>
             <tr>
-                <MatrixAddLanguage :span="channel.currencies.length + 1" :channel="channel"/>
+                <AttachLanguageCell/>
             </tr>
         </table>
     </div>
@@ -40,7 +37,7 @@ function key(l, c) {
 }
 
 .channelMatrixTable {
-    @apply min-w-max overflow-x-scroll table-fixed rounded;
+    @apply min-w-max overflow-x-scroll table-fixed;
 }
 
 .row {
@@ -48,12 +45,12 @@ function key(l, c) {
 }
 
 .currency {
-    @apply px-4 whitespace-nowrap border border-blue-100;
+    @apply px-4 whitespace-nowrap border;
 }
 
 .placeholder,
 .language {
-    @apply bg-blue-100 sticky left-0 text-center px-4 border border-blue-100;
+    @apply sticky left-0 text-center px-4 border bg-white z-50;
 }
 
 </style>

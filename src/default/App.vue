@@ -1,79 +1,94 @@
-<script setup>
-import {useRouter} from 'vue-router'
-import {computed} from 'vue'
+<!--suppress CssUnusedSymbol -->
 
-const children = useRouter().getRoutes() || []
-const navChildren = computed(() => {
-    return children.filter(child => {
-        return child.meta?.name?.length > 1
-    }).reverse()
-})
+<script setup>
+import {IconLayoutSidebarLeftCollapse, IconLayoutSidebarLeftExpand, IconLayoutSidebarRightCollapse, IconLayoutSidebarRightExpand} from '@tabler/icons-vue'
+import ContextPanel from '../components/Dashboard/ContextPanel.vue'
+import NaviagationPanel from '../components/Dashboard/NaviagationPanel.vue'
+import AppLogotype from '../components/Dashboard/AppLogotype.vue'
+import {computed, ref} from 'vue'
+
+const isLeftPanelFolded = ref(false)
+const isRightPanelFolded = ref(false)
+
+
+function toggleLeftPanel() {
+    isLeftPanelFolded.value = !isLeftPanelFolded.value
+}
+
+function toggleRightPanel() {
+    isRightPanelFolded.value = !isRightPanelFolded.value
+}
+
+const dashboardClasses = computed(() => ({
+    dashboard: true,
+    'dashboard--left-folded': isLeftPanelFolded.value,
+    'dashboard--right-folded': isRightPanelFolded.value,
+}))
 </script>
 
 <template>
-    <div class="dashboardContainer">
-        <div class="dashboardNavigation">
-            <div class="navigationLogo">GILDSMITH</div>
-            <RouterLink v-for="(child, key) in navChildren" :key="key" :to="{name: child.name}" class="dashboardNavigationUrl">
-                <component :is="child.meta.icon" v-if="child.meta.icon" size="20" stroke="2.5"/>
-                <span>{{ child.meta.name }}</span>
-            </RouterLink>
+    <div :class="dashboardClasses">
+        <div class="dashboardPanel dashboardPanel--left">
+            <div class="dashboardPanelHeader">
+                <AppLogotype/>
+                <div class="dashboardPanelFoldButton" @click="toggleLeftPanel">
+                    <IconLayoutSidebarLeftExpand size="24" stroke="2" v-if="isLeftPanelFolded"/>
+                    <IconLayoutSidebarLeftCollapse size="24" stroke="2" v-else/>
+                </div>
+            </div>
+            <NaviagationPanel :folded="isLeftPanelFolded"/>
         </div>
-        <div class="dashboardView">
-            <RouterView/>
-        </div>
-        <div class="dashboardNotifications">
-            This section is going to have dynamic notifications and other fireworks 🎉
+        <RouterView class="dashboardPage"/>
+        <div class="dashboardPanel dashboardPanel--right">
+            <div class="dashboardPanelHeader">
+                <div class="dashboardPanelFoldButton" @click="toggleRightPanel">
+                    <IconLayoutSidebarRightExpand size="24" stroke="2" v-if="isRightPanelFolded"/>
+                    <IconLayoutSidebarRightCollapse size="24" stroke="2" v-else/>
+                </div>
+                <div>Context Panel</div>
+            </div>
+            <ContextPanel :folded="isRightPanelFolded"/>
         </div>
     </div>
 </template>
 
 <style>
-.dashboardContainer {
-    @apply min-h-full grid grid-cols-6 bg-slate-50 overflow-x-hidden;
+.dashboard {
+    @apply grid max-w-screen-2xl mx-auto py-16 gap-20 min-h-full;
+    grid-template-columns: 360px auto auto 360px;
 }
 
-.dashboardNavigation {
-    @apply flex flex-col justify-start p-4;
+.dashboard.dashboard--left-folded {
+    grid-template-columns: 80px auto auto 360px;
 }
 
-.dashboardNavigationUrl {
-    @apply flex items-center gap-2 px-4 py-2 rounded text-slate-400;
+.dashboard.dashboard--right-folded {
+    grid-template-columns: 360px auto auto 80px;
+
 }
 
-/*noinspection CssUnusedSymbol*/
-.dashboardNavigationUrl.router-link-active {
-    @apply font-semibold bg-slate-100;
+.dashboard.dashboard--left-folded.dashboard--right-folded {
+    grid-template-columns: 80px auto auto 80px;
 }
 
-.dashboardNavigationUrl.router-link-active > span {
-    @apply text-slate-950;
+.dashboardPage {
+    @apply col-span-2 grid grid-cols-2 items-start self-start gap-20;
 }
 
-.navigationLogo {
-    @apply font-semibold text-center p-4;
+.dashboardPanel {
+    @apply overflow-y-scroll sticky shadow-deep border border-slate-100 h-full top-16 rounded;
+    max-height: calc(100vh - 128px);
 }
 
-.dashboardView {
-    @apply col-span-4 bg-white my-4 p-4 rounded-xl border shadow-shallow;
+.dashboardPanelHeader {
+    @apply flex items-center justify-between p-4 border-b border-slate-100 sticky top-0 bg-white;
 }
 
-.dashboardNotifications {
-    @apply p-4;
+.dashboardPanelFoldButton {
+    @apply p-2 bg-slate-100 text-slate-800 cursor-pointer;
 }
 
-/*
- * Following items are reusable.
- */
-.dashboardHeader {
-    @apply max-w-2xl grid gap-4;
-}
-
-.dashboardHeader > span {
-    @apply text-slate-700 font-medium;
-}
-
-
+/* Global scrollbar CSS */
 ::-webkit-scrollbar {
     height: 1rem;
     width: .5rem
