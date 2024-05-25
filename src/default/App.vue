@@ -30,22 +30,24 @@ const dashboardClasses = computed(() => ({
     <div :class="dashboardClasses">
         <div class="dashboardPanel dashboardPanel--left">
             <div class="dashboardPanelHeader">
-                <AppLogotype/>
+                <AppLogotype class="dashboardPanelLogo"/>
                 <div class="dashboardPanelFoldButton" @click="toggleLeftPanel">
-                    <IconLayoutSidebarLeftExpand size="24" stroke="2" v-if="isLeftPanelFolded"/>
-                    <IconLayoutSidebarLeftCollapse size="24" stroke="2" v-else/>
+                    <IconLayoutSidebarLeftExpand v-if="isLeftPanelFolded" size="24" stroke="2"/>
+                    <IconLayoutSidebarLeftCollapse v-else size="24" stroke="2"/>
                 </div>
             </div>
             <NaviagationPanel :folded="isLeftPanelFolded"/>
         </div>
-        <RouterView class="dashboardPage"/>
+        <div class="dashboardPage">
+            <RouterView/>
+        </div>
         <div class="dashboardPanel dashboardPanel--right">
             <div class="dashboardPanelHeader">
                 <div class="dashboardPanelFoldButton" @click="toggleRightPanel">
-                    <IconLayoutSidebarRightExpand size="24" stroke="2" v-if="isRightPanelFolded"/>
-                    <IconLayoutSidebarRightCollapse size="24" stroke="2" v-else/>
+                    <IconLayoutSidebarRightExpand v-if="isRightPanelFolded" size="24" stroke="2"/>
+                    <IconLayoutSidebarRightCollapse v-else size="24" stroke="2"/>
                 </div>
-                <div>Context Panel</div>
+                <div class="dashboardPanelTitle">Context Panel</div>
             </div>
             <ContextPanel :folded="isRightPanelFolded"/>
         </div>
@@ -64,11 +66,26 @@ const dashboardClasses = computed(() => ({
 
 .dashboard.dashboard--right-folded {
     grid-template-columns: 360px auto auto 80px;
-
 }
 
 .dashboard.dashboard--left-folded.dashboard--right-folded {
     grid-template-columns: 80px auto auto 80px;
+}
+
+.dashboardPanelLogo {
+    @apply mr-auto;
+}
+
+.dashboard--left-folded .dashboardPanelLogo {
+    @apply hidden;
+}
+
+.dashboardPanelTitle {
+    @apply ml-auto;
+}
+
+.dashboard--right-folded .dashboardPanelTitle {
+    @apply hidden;
 }
 
 .dashboardPage {
@@ -76,12 +93,12 @@ const dashboardClasses = computed(() => ({
 }
 
 .dashboardPanel {
-    @apply overflow-y-scroll sticky shadow-deep border border-slate-100 h-full top-16 rounded;
+    @apply overflow-y-auto overflow-x-hidden sticky shadow-deep border border-slate-100 h-full top-16 rounded;
     max-height: calc(100vh - 128px);
 }
 
 .dashboardPanelHeader {
-    @apply flex items-center justify-between p-4 border-b border-slate-100 sticky top-0 bg-white;
+    @apply flex items-center justify-center p-4 border-b border-slate-100 sticky top-0 bg-white;
 }
 
 .dashboardPanelFoldButton {
