@@ -1,7 +1,9 @@
 <script setup>
 import {useRouter} from 'vue-router'
 import {computed} from 'vue'
+import {useI18n} from 'vue-i18n'
 
+const {t} = useI18n()
 const children = useRouter().getRoutes() || []
 const navChildren = computed(() => {
     return children.filter(child => {
@@ -11,21 +13,28 @@ const navChildren = computed(() => {
 </script>
 
 <template>
-    <RouterLink v-for="(navItem, key) in navChildren" :key="key" :to="{name: navItem.name}" class="navLink">
-        <div class="navIcon">
-            <component :is="navItem.meta.icon" v-if="navItem.meta.icon" size="24" stroke="2"/>
-        </div>
-        <div class="navText">
-            <span class="navName">{{ navItem.meta.name }}</span>
-            <span class="navDescription" v-if="navItem.meta.description">{{ navItem.meta.description }}</span>
-        </div>
-    </RouterLink>
+    <div class="navContainer">
+        <RouterLink v-for="(navItem, key) in navChildren" :key="key" :to="{name: navItem.name}" class="navLink">
+            <div class="navIcon">
+                <component :is="navItem.meta.icon" v-if="navItem.meta.icon" size="24" stroke="2"/>
+            </div>
+            <div class="navText">
+                <span class="navName">{{ t(navItem.meta.name) }}</span>
+                <span class="navDescription" v-if="navItem.meta.description">{{ t(navItem.meta.description) }}</span>
+            </div>
+        </RouterLink>
+    </div>
 </template>
 
 <style scoped>
+.navContainer {
+    @apply flex-1;
+}
+
 .navLink {
     @apply flex gap-4 p-4 items-center;
     @apply hover:bg-slate-50;
+    @apply hover:dark:bg-slate-700;
 }
 
 .navText {
