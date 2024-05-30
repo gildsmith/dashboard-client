@@ -1,30 +1,26 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
-import ContextPanel from '../components/Dashboard/ContextPanel.vue'
-import NaviagationPanel from '../components/Dashboard/NaviagationPanel.vue'
-import AppLogo from '../components/Dashboard/AppLogo.vue'
+import AppLogo from '../components/AppLogo.vue'
 import LanguageSelect from '../components/LanguageSelect.vue'
+import ActionCenter from '../sections/ActionCenter.vue'
+import NaviagationPanel from '../sections/NaviagationPanel.vue'
+import {IconChevronLeft, IconChevronRight, IconMoon} from '@tabler/icons-vue'
 import {computed, onMounted, ref} from 'vue'
-import {
-    IconLayoutSidebarLeftCollapse,
-    IconLayoutSidebarLeftExpand,
-    IconLayoutSidebarRightCollapse,
-    IconLayoutSidebarRightExpand,
-    IconMoon,
-    IconViewportNarrow,
-    IconViewportWide,
-} from '@tabler/icons-vue'
+import {useI18n} from 'vue-i18n'
 
+const {t} = useI18n()
+/*
+ | ---------------------------------------------------------------------------
+ | Foldable Panels
+ | ---------------------------------------------------------------------------
+ | These states and functions manage the folding (collapsing) of the left
+ | and right panels. The state is persisted in localStorage to maintain
+ | the user's preference.
+ */
 
-const isNarrow = ref(localStorage.getItem('theme-narrow') === 'true')
 const isLeftPanelFolded = ref(localStorage.getItem('theme-left-folded') === 'true')
 const isRightPanelFolded = ref(localStorage.getItem('theme-right-folded') === 'true')
-
-function toggleNarrow() {
-    isNarrow.value = !isNarrow.value
-    localStorage.setItem('theme-narrow', isNarrow.value.toString())
-}
 
 function toggleLeftPanel() {
     isLeftPanelFolded.value = !isLeftPanelFolded.value
@@ -36,12 +32,14 @@ function toggleRightPanel() {
     localStorage.setItem('theme-right-folded', isRightPanelFolded.value.toString())
 }
 
-const dashboardClasses = computed(() => ({
-    'dashboard': true,
-    'dashboard--narrow': isNarrow.value,
-    'dashboard--left-folded': isLeftPanelFolded.value,
-    'dashboard--right-folded': isRightPanelFolded.value,
-}))
+/*
+ | ---------------------------------------------------------------------------
+ | Theme Toggling
+ | ---------------------------------------------------------------------------
+ | This function toggles the theme between light and dark. The current
+ | theme is stored in localStorage to ensure the theme preference is
+ | maintained across sessions.
+ */
 
 function toggleTheme() {
     document.documentElement.classList.contains('dark')
@@ -56,42 +54,44 @@ onMounted(() => {
         document.documentElement.classList.add('dark')
     }
 })
+
+const dashboardClasses = computed(() => ({
+    'dashboard': true,
+    'dashboard--left-folded': isLeftPanelFolded.value,
+    'dashboard--right-folded': isRightPanelFolded.value,
+}))
 </script>
 
 <template>
     <div :class="dashboardClasses">
         <div class="dashboardPanel dashboardPanel--left">
             <div class="dashboardPanelHeader">
-                <AppLogo class="dashboardPanelLogo"/>
+                <AppLogo class="dashboardLogo"/>
                 <div class="dashboardThemeButton" @click="toggleLeftPanel">
-                    <IconLayoutSidebarLeftExpand v-if="isLeftPanelFolded" size="24" stroke="2"/>
-                    <IconLayoutSidebarLeftCollapse v-else size="24" stroke="2"/>
+                    <IconChevronRight v-if="isLeftPanelFolded" size="24" stroke="2"/>
+                    <IconChevronLeft v-else size="24" stroke="2"/>
                 </div>
             </div>
             <NaviagationPanel/>
-            <div class="dashboardCustomisation">
-                <div class="dashboardThemeButton" @click="toggleNarrow">
-                    <IconViewportWide v-if="isNarrow" size="24" stroke="2"/>
-                    <IconViewportNarrow v-else size="24" stroke="2"/>
-                </div>
+            <div class="dashboardPersonalizationBox">
                 <div class="dashboardThemeButton" @click="toggleTheme">
                     <IconMoon size="24" stroke="2"/>
                 </div>
                 <LanguageSelect/>
             </div>
         </div>
-        <div class="dashboardPage">
+        <div class="dashboardRouterView">
             <RouterView/>
         </div>
         <div class="dashboardPanel dashboardPanel--right">
             <div class="dashboardPanelHeader">
                 <div class="dashboardThemeButton" @click="toggleRightPanel">
-                    <IconLayoutSidebarRightExpand v-if="isRightPanelFolded" size="24" stroke="2"/>
-                    <IconLayoutSidebarRightCollapse v-else size="24" stroke="2"/>
+                    <IconChevronLeft v-if="isRightPanelFolded" size="24" stroke="2"/>
+                    <IconChevronRight v-else size="24" stroke="2"/>
                 </div>
-                <div class="dashboardPanelTitle">Context Panel</div>
+                <div class="dashboardActionCenterTitle">{{ t('Action Center') }}</div>
             </div>
-            <ContextPanel/>
+            <ActionCenter/>
         </div>
     </div>
 </template>
@@ -102,73 +102,29 @@ body {
     @apply dark:bg-slate-800;
 }
 
+/* Dashboard & Folding Adjustment */
 .dashboard {
-    @apply grid mx-auto gap-20 min-h-full;
+    @apply grid mx-auto gap-16 min-h-full;
     @apply dark:text-white;
-    grid-template-columns: 20em auto auto 20em;
-}
-
-.dashboard--narrow {
-    @apply max-w-screen-2xl py-16;
+    grid-template-columns: 20em auto 20em;
 }
 
 .dashboard.dashboard--left-folded {
-    grid-template-columns: 5em auto auto 20em;
+    grid-template-columns: 5em auto 20em;
 }
 
 .dashboard.dashboard--right-folded {
-    grid-template-columns: 20em auto auto 5em;
+    grid-template-columns: 20em auto 5em;
 }
 
 .dashboard.dashboard--left-folded.dashboard--right-folded {
-    grid-template-columns: 5em auto auto 5em;
+    grid-template-columns: 5em auto 5em;
 }
 
-.dashboardPanelLogo {
-    @apply mr-auto;
-}
-
-.dashboard--left-folded .dashboardPanelLogo {
-    @apply hidden;
-}
-
-.dashboardPanelTitle {
-    @apply ml-auto;
-}
-
-.dashboard--right-folded .dashboardPanelTitle {
-    @apply hidden;
-}
-
-.dashboardCustomisation {
-    @apply p-4 flex border-t border-t-slate-100 items-center sticky bottom-0 bg-white gap-4;
-    @apply dark:border-t-slate-700 dark:bg-slate-800;
-}
-
-.dashboard--left-folded .dashboardCustomisation {
-    @apply hidden;
-}
-
-.dashboardCustomisation select {
-    @apply flex-1;
-}
-
-.dashboardPage {
-    @apply col-span-2 grid grid-cols-2 items-start self-start gap-20;
-}
-
-.dashboard:not(.dashboard--narrow) .dashboardPage {
-    @apply py-16;
-}
-
+/* Side Foldanle Panels */
 .dashboardPanel {
-    @apply overflow-y-auto overflow-x-hidden sticky shadow-shallow border border-slate-100 h-full rounded max-h-dvh bg-white;
+    @apply overflow-y-auto overflow-x-hidden sticky border-x h-full max-h-dvh bg-white top-0;
     @apply dark:border-slate-700 dark:bg-slate-800;
-    max-height: 100vh;
-}
-
-.dashboard--narrow .dashboardPanel {
-    max-height: calc(100vh - 8em);
 }
 
 .dashboardPanelHeader {
@@ -177,11 +133,47 @@ body {
 }
 
 .dashboardThemeButton {
-    @apply p-2 bg-slate-100 text-slate-800 cursor-pointer rounded;
-    @apply dark:bg-slate-700 dark:text-slate-100;
+    @apply p-2 border cursor-pointer;
+    @apply dark:border-slate-700 dark:text-slate-100;
 }
 
-/* Global scrollbar styles  */
+/* Logo Box */
+.dashboardLogo {
+    @apply mr-auto;
+}
+
+.dashboard--left-folded .dashboardLogo {
+    @apply hidden;
+}
+
+/* Action Center Box */
+.dashboardActionCenterTitle {
+    @apply ml-auto;
+}
+
+.dashboard--right-folded .dashboardActionCenterTitle {
+    @apply hidden;
+}
+
+/* Personalization Box */
+.dashboardPersonalizationBox {
+    @apply p-4 flex border-t border-t-slate-100 items-center sticky bottom-0 bg-white gap-4;
+    @apply dark:border-t-slate-700 dark:bg-slate-800;
+}
+
+.dashboard--left-folded .dashboardPersonalizationBox {
+    @apply hidden;
+}
+
+.dashboardPersonalizationBox select {
+    @apply flex-1;
+}
+
+.dashboardRouterView {
+    @apply grid grid-cols-2 items-start self-start gap-8 py-8;
+}
+
+/* Global Scrollbar Styles */
 ::-webkit-scrollbar {
     height: 1rem;
     width: .5rem
@@ -208,10 +200,23 @@ body {
     @apply dark:bg-slate-400;
 }
 
-/* Global input styles */
+/* Global Input Styles */
 .input {
-    @apply border border-slate-200 py-2 px-3;
-    @apply dark:bg-slate-700 dark:border-slate-700;
+    @apply border border-slate-200 py-2 px-3 rounded-none;
+    @apply dark:bg-slate-700 dark:border-slate-700 dark:hover:border-slate-600;
 }
 
+.button {
+    @apply bg-slate-100 text-slate-950 border-slate-100 py-1 rounded-none cursor-pointer;
+    @apply dark:bg-slate-600 dark:border-slate-600 dark:text-white;
+}
+
+/* Global Shared Styles */
+.pageHeader {
+    @apply flex flex-col gap-2;
+}
+
+.pageDescription {
+    @apply text-slate-600 max-w-96;
+}
 </style>

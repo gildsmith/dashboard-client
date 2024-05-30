@@ -3,6 +3,17 @@
 import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
 
+/*
+ | ---------------------------------------------------------------------------
+ | Default Echo Configuration
+ | ---------------------------------------------------------------------------
+ | This bootstrap file sets up Laravel Echo with default configurations
+ | tailored for Laravel applications using the Reverb broadcaster. It
+ | pre-configures settings that align with common Laravel real-time event
+ | broadcasting requirements, ensuring seamless integration and optimized
+ | performance for real-time events within the Laravel ecosystem.
+ */
+
 window.Pusher = Pusher
 
 window.Echo = new Echo({

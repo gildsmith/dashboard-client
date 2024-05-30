@@ -1,9 +1,9 @@
 <script setup>
-
+defineProps(['channel'])
 </script>
 
 <template>
-Add language (+)
+{{ channel }}
 </template>
 
 <style scoped>

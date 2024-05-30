@@ -1,8 +1,9 @@
-import ChannelsPage from '../pages/ChannelsPage.vue'
-import IndexPage from '../pages/IndexPage.vue'
+import ChannelsIndex from '../pages/ChannelsIndex.vue'
+import IndexPage from '../pages/DashboardIndex.vue'
 import NotificationsPage from '../pages/NotificationsPage.vue'
 import {IconBell, IconChartArcs, IconDashboard, IconWorld} from '@tabler/icons-vue'
 import StatisticsPage from '../pages/StatisticsPage.vue'
+import ChannelsShow from '../pages/ChannelsShow.vue'
 
 export default [
     {
@@ -40,7 +41,7 @@ export default [
     },
     {
         name: 'dashboard.channels.index',
-        component: ChannelsPage,
+        component: ChannelsIndex,
         path: '/channels',
         meta: {
             name: 'Channels Management',
@@ -48,5 +49,11 @@ export default [
             icon: IconWorld,
             order: 9999,
         },
+    },
+    {
+        name: 'dashboard.channels.show',
+        component: ChannelsShow,
+        path: '/channels/:channel',
+        props: true,
     },
 ]
