@@ -4,7 +4,7 @@ import {IconFlag} from '@tabler/icons-vue'
 
 <template>
     <!-- TODO maintenance is not programmed yet -->
-    <div class="maintenance" v-if="false">
+    <div v-if="false" class="maintenance">
         <div>
             <IconFlag size="16" stroke="2"/>
         </div>

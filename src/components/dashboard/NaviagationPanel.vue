@@ -20,7 +20,7 @@ const navChildren = computed(() => {
             </div>
             <div class="navText">
                 <span class="navName">{{ t(navItem.meta.name) }}</span>
-                <span class="navDescription" v-if="navItem.meta.description">{{ t(navItem.meta.description) }}</span>
+                <span v-if="navItem.meta.description" class="navDescription">{{ t(navItem.meta.description) }}</span>
             </div>
         </RouterLink>
     </div>

@@ -7,7 +7,7 @@ defineProps(['channel'])
 </script>
 
 <template>
-{{ channel }}
+    {{ channel }}
 </template>
 
 <style scoped>

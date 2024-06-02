@@ -26,7 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <select name="language" id="language" v-model="lang" class="input">
-        <option :key="lang" v-for="lang in supportedLocales()" :value="lang">{{ t('language.' + lang) }}</option>
+    <select id="language" v-model="lang" class="input" name="language">
+        <option v-for="lang in supportedLocales()" :key="lang" :value="lang">{{ t('language.' + lang) }}</option>
     </select>
 </template>

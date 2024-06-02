@@ -8,15 +8,14 @@ const {connectionState} = useEchoConnectionState()
 </script>
 
 <template>
-    <div class="connectionState connectionState--connecting" v-if="['initialized', 'connecting'].includes(connectionState)">
+    <div v-if="['initialized', 'connecting'].includes(connectionState)" class="connectionState connectionState--connecting">
         <div class="animate-spin">
             <IconLoader size="16" stroke="2"/>
         </div>
         <span class="connectionStateText">
-            {{ t('Connecting to Live Updates server...') }}
-        </span>
+            {{ t('Connecting to Live Updates server...') }}</span>
     </div>
-    <div class="connectionState connectionState--failed" v-if="['unavailable', 'failed'].includes(connectionState)">
+    <div v-if="['unavailable', 'failed'].includes(connectionState)" class="connectionState connectionState--failed">
         <div>
             <IconMoodPuzzled size="16" stroke="2"/>
         </div>

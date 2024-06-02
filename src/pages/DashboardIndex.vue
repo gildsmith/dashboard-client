@@ -3,7 +3,7 @@
 </script>
 
 <template>
-DASHBOARD INDEX!!
+    DASHBOARD INDEX!!
 </template>
 
 <style scoped>
