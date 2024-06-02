@@ -1,10 +1,10 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
-import ProtectionFull from './ChannelStickers/ProtectionFull.vue'
-import ScopePublic from './ChannelStickers/ScopePublic.vue'
-import LanguagesTotal from './ChannelStickers/LanguagesTotal.vue'
-import CurrenciesTotal from './ChannelStickers/CurrenciesTotal.vue'
+import ProtectionFull from './stickers/ProtectionFull.vue'
+import ScopePublic from './stickers/ScopePublic.vue'
+import LanguagesTotal from './stickers/LanguagesTotal.vue'
+import CurrenciesTotal from './stickers/CurrenciesTotal.vue'
 import MaintenanceBadge from './MaintenanceBadge.vue'
 
 defineProps(['channel'])

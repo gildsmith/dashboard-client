@@ -1,5 +1,5 @@
 <script setup>
-import ConnectionStatus from '../ActionCenter/ConnectionState.vue'
+import ConnectionStatus from '../actioncenter/ConnectionState.vue'
 </script>
 
 <template>

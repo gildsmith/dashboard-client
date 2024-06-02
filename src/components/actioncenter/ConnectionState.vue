@@ -1,6 +1,6 @@
 <script setup>
 import {IconLoader, IconMoodPuzzled} from '@tabler/icons-vue'
-import {useEchoConnectionState} from '../../composables/echoConnectionState.ts'
+import {useEchoConnectionState} from '../../composables/actioncenter/echoConnectionState.ts'
 import {useI18n} from 'vue-i18n'
 
 const {t} = useI18n()

@@ -1,13 +1,13 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
-import AppLogo from '../components/Dashboard/AppLogo.vue'
-import ActionCenter from '../components/Dashboard/ActionCenter.vue'
-import NaviagationPanel from '../components/Dashboard/NaviagationPanel.vue'
+import AppLogo from '../components/dashboard/AppLogo.vue'
+import ActionCenter from '../components/dashboard/ActionCenter.vue'
+import NaviagationPanel from '../components/dashboard/NaviagationPanel.vue'
 import {IconChevronLeft, IconChevronRight} from '@tabler/icons-vue'
 import {computed, ref} from 'vue'
 import {useI18n} from 'vue-i18n'
-import DashboardPersonalization from '../components/Dashboard/DashboardPersonalization.vue'
+import DashboardPersonalization from '../components/dashboard/DashboardPersonalization.vue'
 
 const {t} = useI18n()
 

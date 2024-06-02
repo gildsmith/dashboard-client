@@ -1,37 +1,11 @@
 <script setup>
-import {onMounted, onUnmounted, ref} from 'vue'
-import ChannelCard from '../components/Channels/ChannelCard.vue'
+import ChannelCard from '../components/channels/ChannelCard.vue'
+import CreateChannelForm from '../components/channels/CreateChannelForm.vue'
+import {useIndexChannels} from '../composables/channels/indexChannels.ts'
 import {useI18n} from 'vue-i18n'
-import CreateChannelForm from '../components/Channels/CreateChannelForm.vue'
 
 const {t} = useI18n()
-const channels = ref([])
-
-onMounted(() => {
-    axios.get('/api/channels').then(response => {
-        channels.value = response.data
-    })
-
-    function updateChannel(e) {
-        channels.value = channels.value.map(channel =>
-            channel.id === e.channel.id ? e.channel : channel,
-        )
-    }
-
-    window.Echo.private('dashboard')
-        .listen('.Gildsmith\\HubApi\\Events\\CurrencyAttached', updateChannel)
-        .listen('.Gildsmith\\HubApi\\Events\\CurrencyDetached', updateChannel)
-        .listen('.Gildsmith\\HubApi\\Events\\LanguageAttached', updateChannel)
-        .listen('.Gildsmith\\HubApi\\Events\\LanguageDetached', updateChannel)
-})
-
-onUnmounted(() => {
-    window.Echo.private('dashboard')
-        .stopListening('.Gildsmith\\HubApi\\Events\\CurrencyAttached')
-        .stopListening('.Gildsmith\\HubApi\\Events\\CurrencyDetached')
-        .stopListening('.Gildsmith\\HubApi\\Events\\LanguageAttached')
-        .stopListening('.Gildsmith\\HubApi\\Events\\LanguageDetached')
-})
+const {channels} = useIndexChannels()
 </script>
 
 <template>

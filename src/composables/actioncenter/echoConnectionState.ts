@@ -10,13 +10,9 @@ export function useEchoConnectionState() {
         connectionState.value = state.current || 'unavailable'
     }
 
-    onMounted(() => {
-        window.Echo.connector.pusher.connection.bind('state_change', stateChanged)
-    })
+    onMounted(() => window.Echo.connector.pusher.connection.bind('state_change', stateChanged))
 
-    onUnmounted(() => {
-        window.Echo.connector.pusher.connection.unbind('state_change', stateChanged)
-    })
+    onUnmounted(() => window.Echo.connector.pusher.connection.unbind('state_change', stateChanged))
 
     return {connectionState}
 }
