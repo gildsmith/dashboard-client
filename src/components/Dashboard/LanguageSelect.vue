@@ -2,11 +2,11 @@
 import {onMounted, ref, watch} from 'vue'
 import {useI18n} from 'vue-i18n'
 
-const {locale} = useI18n()
+const {locale, messages, t} = useI18n()
 const lang = ref(locale.value)
 
 function supportedLocales() {
-    return ['en', 'pl']
+    return Object.keys(messages.getter())
 }
 
 function browserLocale() {
@@ -14,22 +14,19 @@ function browserLocale() {
     return supportedLocales().includes(browserLanguage) ? browserLanguage : 'en'
 }
 
-function storedLocale() {
-    const storedLocale = localStorage.getItem('preferred-language')
-    lang.value = storedLocale || browserLocale()
-}
-
 watch(lang, (value) => {
     locale.value = value
     localStorage.setItem('preferred-language', value)
 })
 
-onMounted(storedLocale)
+onMounted(() => {
+    const storedLocale = localStorage.getItem('preferred-language')
+    lang.value = storedLocale || browserLocale()
+})
 </script>
 
 <template>
     <select name="language" id="language" v-model="lang" class="input">
-        <option value="en">English</option>
-        <option value="pl">Polski</option>
+        <option :key="lang" v-for="lang in supportedLocales()" :value="lang">{{ t('language.' + lang) }}</option>
     </select>
 </template>

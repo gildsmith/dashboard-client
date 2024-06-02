@@ -2,6 +2,7 @@
 import {onMounted, onUnmounted, ref} from 'vue'
 import ChannelCard from '../components/Channels/ChannelCard.vue'
 import {useI18n} from 'vue-i18n'
+import CreateChannelForm from '../components/Channels/CreateChannelForm.vue'
 
 const {t} = useI18n()
 const channels = ref([])
@@ -43,10 +44,11 @@ onUnmounted(() => {
     <div class="channelsList">
         <ChannelCard v-for="channel in channels" :key="channel.id" :channel="channel"/>
     </div>
+    <CreateChannelForm/>
 </template>
 
 <style scoped>
 .channelsList {
-    @apply col-span-2;
+    @apply col-span-2 grid gap-8;
 }
 </style>

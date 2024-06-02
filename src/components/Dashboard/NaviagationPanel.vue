@@ -44,6 +44,10 @@ const navChildren = computed(() => {
 .navName {
 }
 
+.navShortName {
+    @apply text-xs uppercase font-medium;
+}
+
 .navDescription {
     @apply text-sm text-slate-500;
 }

@@ -1,15 +1,16 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
-import AppLogo from '../components/AppLogo.vue'
-import LanguageSelect from '../components/LanguageSelect.vue'
-import ActionCenter from '../sections/ActionCenter.vue'
-import NaviagationPanel from '../sections/NaviagationPanel.vue'
-import {IconChevronLeft, IconChevronRight, IconMoon} from '@tabler/icons-vue'
-import {computed, onMounted, ref} from 'vue'
+import AppLogo from '../components/Dashboard/AppLogo.vue'
+import ActionCenter from '../components/Dashboard/ActionCenter.vue'
+import NaviagationPanel from '../components/Dashboard/NaviagationPanel.vue'
+import {IconChevronLeft, IconChevronRight} from '@tabler/icons-vue'
+import {computed, ref} from 'vue'
 import {useI18n} from 'vue-i18n'
+import DashboardPersonalization from '../components/Dashboard/DashboardPersonalization.vue'
 
 const {t} = useI18n()
+
 /*
  | ---------------------------------------------------------------------------
  | Foldable Panels
@@ -32,29 +33,6 @@ function toggleRightPanel() {
     localStorage.setItem('theme-right-folded', isRightPanelFolded.value.toString())
 }
 
-/*
- | ---------------------------------------------------------------------------
- | Theme Toggling
- | ---------------------------------------------------------------------------
- | This function toggles the theme between light and dark. The current
- | theme is stored in localStorage to ensure the theme preference is
- | maintained across sessions.
- */
-
-function toggleTheme() {
-    document.documentElement.classList.contains('dark')
-        ? document.documentElement.classList.remove('dark')
-        : document.documentElement.classList.add('dark')
-
-    localStorage.setItem('theme-dark', document.documentElement.classList.contains('dark').toString())
-}
-
-onMounted(() => {
-    if (localStorage.getItem('theme-dark') === 'true') {
-        document.documentElement.classList.add('dark')
-    }
-})
-
 const dashboardClasses = computed(() => ({
     'dashboard': true,
     'dashboard--left-folded': isLeftPanelFolded.value,
@@ -73,12 +51,7 @@ const dashboardClasses = computed(() => ({
                 </div>
             </div>
             <NaviagationPanel/>
-            <div class="dashboardPersonalizationBox">
-                <div class="dashboardThemeButton" @click="toggleTheme">
-                    <IconMoon size="24" stroke="2"/>
-                </div>
-                <LanguageSelect/>
-            </div>
+            <DashboardPersonalization/>
         </div>
         <div class="dashboardRouterView">
             <RouterView/>
@@ -156,19 +129,6 @@ body {
 }
 
 /* Personalization Box */
-.dashboardPersonalizationBox {
-    @apply p-4 flex border-t border-t-slate-100 items-center sticky bottom-0 bg-white gap-4;
-    @apply dark:border-t-slate-700 dark:bg-slate-800;
-}
-
-.dashboard--left-folded .dashboardPersonalizationBox {
-    @apply hidden;
-}
-
-.dashboardPersonalizationBox select {
-    @apply flex-1;
-}
-
 .dashboardRouterView {
     @apply grid grid-cols-2 items-start self-start gap-8 py-8;
 }
@@ -203,12 +163,12 @@ body {
 /* Global Input Styles */
 .input {
     @apply border border-slate-200 py-2 px-3 rounded-none;
-    @apply dark:bg-slate-700 dark:border-slate-700 dark:hover:border-slate-600;
+    @apply dark:bg-slate-800 dark:border-slate-700 dark:hover:border-slate-600;
 }
 
 .button {
-    @apply bg-slate-100 text-slate-950 border-slate-100 py-1 rounded-none cursor-pointer;
-    @apply dark:bg-slate-600 dark:border-slate-600 dark:text-white;
+    @apply bg-slate-950 text-white py-1 border-none rounded-none cursor-pointer;
+    @apply dark:bg-white dark:text-slate-950;
 }
 
 /* Global Shared Styles */
@@ -218,5 +178,6 @@ body {
 
 .pageDescription {
     @apply text-slate-600 max-w-96;
+    @apply dark:text-slate-400;
 }
 </style>
