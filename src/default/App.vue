@@ -1,7 +1,7 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
-import AppLogo from '../components/dashboard/AppLogo.vue'
+import GildsmithLogo from '../components/dashboard/GildsmithLogo.vue'
 import ActionCenter from '../components/dashboard/ActionCenter.vue'
 import NaviagationPanel from '../components/dashboard/NaviagationPanel.vue'
 import {IconChevronLeft, IconChevronRight} from '@tabler/icons-vue'
@@ -44,7 +44,7 @@ const dashboardClasses = computed(() => ({
     <div :class="dashboardClasses">
         <div class="dashboardPanel dashboardPanel--left">
             <div class="dashboardPanelHeader">
-                <AppLogo class="dashboardLogo"/>
+                <GildsmithLogo class="dashboardLogo"/>
                 <div class="dashboardThemeButton" @click="toggleLeftPanel">
                     <IconChevronRight v-if="isLeftPanelFolded" size="24" stroke="2"/>
                     <IconChevronLeft v-else size="24" stroke="2"/>
@@ -167,13 +167,13 @@ body {
 }
 
 .button {
-    @apply bg-slate-950 text-white py-1 border-none rounded-none cursor-pointer;
+    @apply bg-slate-950 text-white py-2 px-4 border-none rounded-full cursor-pointer;
     @apply dark:bg-white dark:text-slate-950;
 }
 
 /* Global Shared Styles */
 .pageHeader {
-    @apply flex flex-col gap-2;
+    @apply flex flex-col gap-4 col-span-2;
 }
 
 .pageDescription {

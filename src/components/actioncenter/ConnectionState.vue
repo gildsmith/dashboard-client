@@ -1,44 +1,45 @@
-<script setup>
-import {IconLoader, IconMoodPuzzled} from '@tabler/icons-vue'
-import {useEchoConnectionState} from '../../composables/actioncenter/echoConnectionState.ts'
-import {useI18n} from 'vue-i18n'
+<!--suppress CssUnusedSymbol -->
 
-const {t} = useI18n()
-const {connectionState} = useEchoConnectionState()
+<script setup>
+import {useConnectionState} from '../../composables/actioncenter/connectionState.ts'
+import ConnectionStateConnecting from './ConnectionStateConnecting.vue'
+import ConnectionStateFailed from './ConnectionStateFailed.vue'
+
+/*
+ | ---------------------------------------------------------------------------
+ | Connection State
+ | ---------------------------------------------------------------------------
+ | This simple component displays the state of the websocket connection. To
+ | avoid clutter, it communicates only pending and failed attempts.
+ */
+
+const {connectionState} = useConnectionState()
 </script>
 
 <template>
-    <div v-if="['initialized', 'connecting'].includes(connectionState)" class="connectionState connectionState--connecting">
-        <div class="animate-spin">
-            <IconLoader size="16" stroke="2"/>
-        </div>
-        <span class="connectionStateText">
-            {{ t('Connecting to Live Updates server...') }}</span>
-    </div>
-    <div v-if="['unavailable', 'failed'].includes(connectionState)" class="connectionState connectionState--failed">
-        <div>
-            <IconMoodPuzzled size="16" stroke="2"/>
-        </div>
-        <span class="connectionStateText">
-            {{ t('Connection issue: Live Updates are currently unavailable.') }}
-        </span>
-    </div>
+    <ConnectionStateConnecting v-if="['initialized', 'connecting'].includes(connectionState)"/>
+    <ConnectionStateFailed v-if="['unavailable', 'failed'].includes(connectionState)"/>
 </template>
 
-<style scoped>
+<style>
+/* Common styles for all states */
 .connectionState {
     @apply flex items-center gap-2 px-4 py-2 text-slate-950;
 }
 
-.connectionState--connecting {
-    @apply bg-emerald-200;
-}
-
-.connectionState--failed {
-    @apply bg-amber-200;
+.dashboard--right-folded .connectionState {
+    @apply py-4;
 }
 
 .connectionStateText {
     @apply text-sm;
+}
+
+.dashboard--right-folded .connectionState {
+    @apply justify-center;
+}
+
+.dashboard--right-folded .connectionStateText {
+    @apply hidden;
 }
 </style>

@@ -6,9 +6,9 @@ import {useI18n} from 'vue-i18n'
 const {t} = useI18n()
 const children = useRouter().getRoutes() || []
 const navChildren = computed(() => {
-    return children.filter(child => {
-        return child.meta?.name?.length > 1
-    }).sort((a, b) => (a.meta?.order || 0) - (b.meta?.order || 0))
+    return children
+        .filter(child => child.meta?.name?.length > 1)
+        .sort((a, b) => (a.meta?.order || 0) - (b.meta?.order || 0))
 })
 </script>
 

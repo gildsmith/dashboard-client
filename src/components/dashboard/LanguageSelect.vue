@@ -2,6 +2,16 @@
 import {onMounted, ref, watch} from 'vue'
 import {useI18n} from 'vue-i18n'
 
+/*
+ | ---------------------------------------------------------------------------
+ | Language Selector
+ | ---------------------------------------------------------------------------
+ | This component provides a language selector dropdown. It initializes the
+ | language based on the user's browser settings or stored preference, and
+ | updates the locale and stored preference when the user selects a different
+ | language.
+ */
+
 const {locale, messages, t} = useI18n()
 const lang = ref(locale.value)
 

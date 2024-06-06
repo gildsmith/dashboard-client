@@ -3,12 +3,9 @@ import {ref} from 'vue'
 export function useCreateChannel() {
     const channelName = ref('')
 
-    function submitForm() {
-        axios.post('/api/channels', {name: channelName.value}).then((e) => {
-            console.log(e)
-        }).catch((e) => {
-            console.log(e)
-        })
+    async function submitForm() {
+        const response = await axios.post('/api/channels', {name: channelName.value})
+        return response.data
     }
 
     return {channelName, submitForm}

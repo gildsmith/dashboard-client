@@ -1,9 +1,14 @@
 <script setup>
-import ConnectionStatus from '../actioncenter/ConnectionState.vue'
+import ConnectionState from '../actioncenter/ConnectionState.vue'
+
+/*
+ * Action Center is a dynamic, ever present configurable side panel that collects
+ * most important notifications and features for you to always be up to date.
+ */
 </script>
 
 <template>
-    <ConnectionStatus/>
+    <ConnectionState/>
 </template>
 
 <style scoped>
