@@ -15,9 +15,7 @@ const navChildren = computed(() => {
 <template>
     <div class="navContainer">
         <RouterLink v-for="(navItem, key) in navChildren" :key="key" :to="{name: navItem.name}" class="navLink">
-            <div class="navIcon">
-                <component :is="navItem.meta.icon" v-if="navItem.meta.icon" size="24" stroke="2"/>
-            </div>
+            <component :is="navItem.meta.icon" v-if="navItem.meta.icon" size="24" stroke="2"/>
             <div class="navText">
                 <span class="navName">{{ t(navItem.meta.name) }}</span>
                 <span v-if="navItem.meta.description" class="navDescription">{{ t(navItem.meta.description) }}</span>
@@ -34,7 +32,6 @@ const navChildren = computed(() => {
 .navLink {
     @apply flex gap-4 p-4 items-center;
     @apply hover:bg-slate-50;
-    @apply hover:dark:bg-slate-700;
 }
 
 .navText {

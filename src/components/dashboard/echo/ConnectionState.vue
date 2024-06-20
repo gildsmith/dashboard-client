@@ -1,7 +1,7 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
-import {useConnectionState} from '../../composables/actioncenter/connectionState.ts'
+import {useConnectionState} from '../../../composables/actioncenter/connectionState.ts'
 import ConnectionStateConnecting from './ConnectionStateConnecting.vue'
 import ConnectionStateFailed from './ConnectionStateFailed.vue'
 

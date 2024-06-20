@@ -71,14 +71,12 @@ const dashboardClasses = computed(() => ({
 
 <style>
 body {
-    @apply bg-slate-50;
-    @apply dark:bg-slate-800;
+    @apply bg-slate-50 antialiased;
 }
 
 /* Dashboard & Folding Adjustment */
 .dashboard {
     @apply grid mx-auto gap-16 min-h-full;
-    @apply dark:text-white;
     grid-template-columns: 20em auto 20em;
 }
 
@@ -97,17 +95,14 @@ body {
 /* Side Foldanle Panels */
 .dashboardPanel {
     @apply overflow-y-auto overflow-x-hidden sticky border-x h-full max-h-dvh bg-white top-0;
-    @apply dark:border-slate-700 dark:bg-slate-800;
 }
 
 .dashboardPanelHeader {
     @apply flex items-center justify-center p-4 border-b border-slate-100 sticky top-0 bg-white;
-    @apply dark:border-slate-700 dark:bg-slate-800;
 }
 
 .dashboardThemeButton {
     @apply p-2 border cursor-pointer;
-    @apply dark:border-slate-700 dark:text-slate-100;
 }
 
 /* Logo Box */
@@ -150,34 +145,41 @@ body {
 
 ::-webkit-scrollbar-thumb {
     @apply bg-slate-200;
-    @apply dark:bg-slate-500;
     border-color: #ffffff;
     border-width: 1px
 }
 
 ::-webkit-scrollbar-thumb:hover {
     @apply bg-slate-300;
-    @apply dark:bg-slate-400;
 }
 
-/* Global Input Styles */
+/* Common Global Styles */
 .input {
     @apply border border-slate-200 py-2 px-3 rounded-none;
-    @apply dark:bg-slate-800 dark:border-slate-700 dark:hover:border-slate-600;
 }
 
 .button {
     @apply bg-slate-950 text-white py-2 px-4 border-none rounded-full cursor-pointer;
-    @apply dark:bg-white dark:text-slate-950;
 }
 
-/* Global Shared Styles */
-.pageHeader {
-    @apply flex flex-col gap-4 col-span-2;
+.header {
+    @apply text-2xl font-medium;
 }
 
-.pageDescription {
-    @apply text-slate-600 max-w-96;
-    @apply dark:text-slate-400;
+.subheader {
+    @apply text-xl font-medium;
+}
+
+.description {
+    @apply text-slate-600 max-w-96 block;
+}
+
+.footnote {
+    @apply text-sm italic;
+}
+
+/* This fixes Tabler icons being squashed by flex content */
+.tabler-icon {
+    @apply shrink-0;
 }
 </style>

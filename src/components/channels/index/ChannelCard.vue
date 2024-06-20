@@ -1,10 +1,11 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
+import {IconSettings2} from '@tabler/icons-vue'
 import LanguageSticker from './stickers/LanguageSticker.vue'
 import CurrencySticker from './stickers/CurrencySticker.vue'
 import MaintenanceBadge from './MaintenanceBadge.vue'
-import DeleteChannelButton from './DeleteChannelButton.vue'
+import {useI18n} from 'vue-i18n'
 
 /*
  | ---------------------------------------------------------------------------
@@ -15,6 +16,7 @@ import DeleteChannelButton from './DeleteChannelButton.vue'
  */
 
 defineProps(['channel'])
+const {t} = useI18n()
 </script>
 
 <template>
@@ -22,25 +24,27 @@ defineProps(['channel'])
         <div class="channelCard">
             <div class="channelEssentials">
                 <div class="channelHeader">
-                    <div class="channelId">#{{ channel.id }}</div>
-                    <h1 class="channelName">{{ channel.name }}</h1>
+                    <div class="channelNameContainer">
+                        <div class="channelId">#{{ channel.id }}</div>
+                        <h1 class="channelName header">{{ t(channel.name) }}</h1>
+                    </div>
+                    <div v-if="channel.description" class="channelDescription">{{ t(channel.description) }}</div>
                 </div>
-                <div v-if="channel.description" class="channelDescription">{{ channel.description }}</div>
-                <div class="channelActions">
-                    <RouterLink :to="{ name: 'dashboard.channels.show', params: { channel: channel.id }}" class="button">Edit</RouterLink>
-                    <DeleteChannelButton :channel="channel"/>
-                </div>
+                <RouterLink :to="{ name: 'dashboard.channels.show', params: { id: channel.id }}" class="channelEditButton">
+                    <IconSettings2 size="16" stroke="2"/>
+                    <span>{{ t('Edit') }}</span>
+                </RouterLink>
             </div>
             <div class="channelStickersContainer">
                 <LanguageSticker :channel="channel"/>
                 <CurrencySticker :channel="channel"/>
             </div>
         </div>
-        <MaintenanceBadge/>
+        <MaintenanceBadge :channel="channel"/>
     </div>
 </template>
 
-<style>
+<style scoped>
 .channelCardContainer {
     @apply border;
     @apply dark:border-slate-700;
@@ -52,10 +56,19 @@ defineProps(['channel'])
 }
 
 .channelEssentials {
-    @apply p-4 flex flex-col gap-2;
+    @apply p-4 flex gap-4 items-start justify-between;
 }
 
 .channelHeader {
+    @apply flex flex-col gap-2;
+}
+
+.channelEditButton {
+    @apply flex gap-2 items-center text-sm border border-slate-100 text-slate-950 py-2 px-4 rounded-full;
+    @apply hover:bg-slate-100;
+}
+
+.channelNameContainer {
     @apply flex items-center gap-2;
 }
 
@@ -77,27 +90,5 @@ defineProps(['channel'])
 
 .channelStickersContainer {
     @apply grid grid-cols-2;
-}
-
-/* Common Stickers Styles */
-.channelSticker {
-    @apply dark:bg-slate-800;
-    @apply flex flex-col justify-center gap-1 p-4 bg-slate-50;
-}
-
-.channelStickerHeader {
-    @apply flex items-center gap-1;
-}
-
-.channelStickerIcon {
-    @apply text-slate-500;
-}
-
-.channelStickerName {
-    @apply text-base;
-}
-
-.channelStickerDescription {
-    @apply text-sm;
 }
 </style>

@@ -1,12 +1,12 @@
-import ChannelsIndex from '../pages/ChannelsIndex.vue'
-import IndexPage from '../pages/DashboardIndex.vue'
+import ChannelsIndex from '../pages/ChannelIndex.vue'
+import DashboardIndex from '../pages/DashboardIndex.vue'
 import {IconDashboard, IconWorld} from '@tabler/icons-vue'
-import ChannelsShow from '../pages/ChannelsShow.vue'
+import ChannelsShow from '../pages/ChannelShow.vue'
 
 export default [
     {
         name: 'dashboard.index',
-        component: IndexPage,
+        component: DashboardIndex,
         path: '/',
         meta: {
             name: 'Dashboard',
@@ -29,7 +29,7 @@ export default [
     {
         name: 'dashboard.channels.show',
         component: ChannelsShow,
-        path: '/channels/:channel',
+        path: '/channels/:id',
         props: true,
     },
 ]

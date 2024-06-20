@@ -5,12 +5,17 @@ import router from './bootstrap/router.js'
 import appComponent from './bootstrap/app.js'
 import {createPinia} from 'pinia'
 import {createApp} from 'vue'
+import {useNotificationsStore} from './stores/notifications.js'
 
 window.axios.interceptors.request.use(config => {
     const lang = i18n.global.locale.value
     config.params = config.params || {}
     config.params.lang = lang
     return config
+})
+
+window.axios.interceptors.response.use(r=>r, error => {
+    useNotificationsStore().append(error.message)
 })
 
 // noinspection JSCheckFunctionSignatures

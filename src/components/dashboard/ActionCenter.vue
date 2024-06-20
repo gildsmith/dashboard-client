@@ -1,5 +1,6 @@
 <script setup>
-import ConnectionState from '../actioncenter/ConnectionState.vue'
+import ConnectionState from './echo/ConnectionState.vue'
+import NotificationStack from './NotificationStack.vue'
 
 /*
  * Action Center is a dynamic, ever present configurable side panel that collects
@@ -9,8 +10,5 @@ import ConnectionState from '../actioncenter/ConnectionState.vue'
 
 <template>
     <ConnectionState/>
+    <NotificationStack/>
 </template>
-
-<style scoped>
-
-</style>

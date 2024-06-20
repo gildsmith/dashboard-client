@@ -1,7 +1,8 @@
 <script setup>
 import {IconTrash} from '@tabler/icons-vue'
-import {useDeleteChannel} from '../../composables/channels/deleteChannel.ts'
+import {useDeleteChannel} from '../../../composables/channels/deleteChannel.ts'
 import {ref} from 'vue'
+import {useI18n} from 'vue-i18n'
 
 /*
  | ---------------------------------------------------------------------------
@@ -13,37 +14,42 @@ import {ref} from 'vue'
  | is made and the channel is deleted.
  */
 
-defineProps(['channel'])
-
-const timeout = ref(0)
+const {t} = useI18n()
 const {submit} = useDeleteChannel()
-let intervalId = null
+const props = defineProps(['channel'])
+const emits = defineEmits(['deleted'])
+const timeout = ref(0)
+let timeoutInterval = null
 
 function startCounting() {
     timeout.value = 10
-    intervalId = setInterval(() => {
+    timeoutInterval = setInterval(() => {
         timeout.value -= 1
         if (timeout.value <= 0) {
-            clearInterval(intervalId)
-            intervalId = 0
+            clearInterval(timeoutInterval)
+            timeoutInterval = 0
         }
     }, 1000)
+}
+
+async function deleteChannel() {
+    try {
+        await submit(props.channel.id)
+        emits('deleted')
+    } catch (e) {
+        return null
+    }
 }
 </script>
 
 <template>
     <div v-if="!timeout" class="button deleteChannelPrompt" @click="startCounting">
-        <div>
-            <IconTrash size="16" stroke="1.5"/>
-        </div>
-        <span v-if="channel.id === 1">Prune channel</span>
-        <span v-else>Delete channel and all related data</span>
+        <IconTrash size="16" stroke="1.5"/>
+        <span>{{ t('Delete channel and all its data') }}</span>
     </div>
-    <div v-if="timeout" class="button deleteChannel" @click="submit(channel.id)">
-        <div>
-            <IconTrash size="16" stroke="1.5"/>
-        </div>
-        <span>Click again to confirm deletion ({{ timeout }})</span>
+    <div v-if="timeout" class="button deleteChannel" @click="deleteChannel">
+        <IconTrash size="16" stroke="1.5"/>
+        <span>{{ t('Click again to confirm deletion') }} ({{ timeout }})</span>
     </div>
 </template>
 

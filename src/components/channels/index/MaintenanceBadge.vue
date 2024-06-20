@@ -1,10 +1,11 @@
 <script setup>
 import {IconFlag} from '@tabler/icons-vue'
+
+defineProps(['channel'])
 </script>
 
 <template>
-    <!-- TODO maintenance is not programmed yet -->
-    <div v-if="false" class="maintenance">
+    <div v-if="channel.maintenance" class="maintenance">
         <div>
             <IconFlag size="16" stroke="2"/>
         </div>
