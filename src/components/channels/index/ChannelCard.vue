@@ -47,12 +47,10 @@ const {t} = useI18n()
 <style scoped>
 .channelCardContainer {
     @apply border;
-    @apply dark:border-slate-700;
 }
 
 .channelCard {
     @apply grid bg-white;
-    @apply dark:bg-slate-700;
 }
 
 .channelEssentials {

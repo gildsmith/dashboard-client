@@ -1,4 +1,4 @@
-import defaultApp from '../default/App.vue'
+import defaultApp from './default/App.vue'
 
 /*
  | ---------------------------------------------------------------------------

@@ -1,8 +1,7 @@
 export function useUpdateChannel() {
 
     async function submit(id, data) {
-        const response = await axios.patch('/api/channels/' + id, data)
-        return response.data
+        return await axios.patch('/api/channels/' + id, data)
     }
 
     async function enableMaintenance(id) {

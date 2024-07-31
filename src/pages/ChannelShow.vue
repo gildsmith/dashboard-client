@@ -5,6 +5,9 @@ import ChannelEssentialsSection from '../components/channels/show/ChannelEssenti
 import ChannelDefaultsSection from '../components/channels/show/ChannelDefaultsSection.vue'
 import ChannelLocalizationSection from '../components/channels/show/ChannelLocalizationSection.vue'
 import StatusHandler from '../components/dashboard/status/StatusHandler.vue'
+import ChannelActionsSection from '../components/channels/show/ChannelActionsSection.vue'
+import ChannelLanguagesSections from '../components/channels/show/ChannelLanguagesSections.vue'
+import ChannelCurrenciesSection from '../components/channels/show/ChannelCurrenciesSection.vue'
 
 // TODO create an event listener on when the channel is updated or deleted.
 
@@ -22,11 +25,11 @@ function refresh() {
 }
 
 onMounted(() => {
-    echoChannel.listen('.ChannelUpdated', (broadcastedChannel) => {
+    echoChannel.listen('.ChannelUpdated', broadcastedChannel => {
         channelsStore.upsert(broadcastedChannel)
     })
 
-    echoChannel.listen('.ChannelDeleted', (broadcastedChannel) => {
+    echoChannel.listen('.ChannelDeleted', broadcastedChannel => {
         channelsStore.delete(broadcastedChannel.id)
     })
 
@@ -61,11 +64,14 @@ onUnmounted(() => {
 <template>
     <template v-if="channel">
         <ChannelEssentialsSection :channel="channel"/>
+        <ChannelLanguagesSections :channel="channel"/>
+        <ChannelCurrenciesSection :channel="channel"/>
         <ChannelDefaultsSection :channel="channel"/>
-        <ChannelLocalizationSection :channel="channel"/>
+        <ChannelActionsSection :channel="channel"/>
     </template>
-    <StatusHandler v-else :error="channelsStore.error" :status="channelsStore.status" @refresh="refresh"/>
+    <template v-else>
+        There's nothing in here.
+        If this screen just appearead out of the blue, chances are that the channel was removed.
+    </template>
+    <StatusHandler v-if="channelsStore.error" :error="channelsStore.error" :status="channelsStore.status" @refresh="refresh"/>
 </template>
-
-<style scoped>
-</style>

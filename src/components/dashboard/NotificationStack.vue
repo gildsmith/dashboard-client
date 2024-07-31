@@ -5,7 +5,6 @@ const ns = useNotificationsStore()
 </script>
 
 <template>
-    <div>Temp notifications</div>
     <div v-for="n in ns.notifications" :key="n.id" @click="ns.remove(n.id)">
         {{ n.message }}
     </div>

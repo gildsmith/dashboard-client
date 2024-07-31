@@ -1,6 +1,6 @@
 <script setup>
 import {IconTrash} from '@tabler/icons-vue'
-import {useDeleteChannel} from '../../../composables/channels/deleteChannel.ts'
+import {useDeleteChannel} from '../../../../composables/channels/deleteChannel.ts'
 import {ref} from 'vue'
 import {useI18n} from 'vue-i18n'
 
@@ -17,7 +17,7 @@ import {useI18n} from 'vue-i18n'
 const {t} = useI18n()
 const {submit} = useDeleteChannel()
 const props = defineProps(['channel'])
-const emits = defineEmits(['deleted'])
+const emits = defineEmits(['channelDeleted'])
 const timeout = ref(0)
 let timeoutInterval = null
 
@@ -33,12 +33,8 @@ function startCounting() {
 }
 
 async function deleteChannel() {
-    try {
-        await submit(props.channel.id)
-        emits('deleted')
-    } catch (e) {
-        return null
-    }
+    await submit(props.channel.id)
+    emits('channelDeleted')
 }
 </script>
 
@@ -55,7 +51,7 @@ async function deleteChannel() {
 
 <style scoped>
 .deleteChannelPrompt {
-    @apply bg-slate-50 text-red-600;
+    @apply border-red-600 text-red-600;
 }
 
 .deleteChannel {

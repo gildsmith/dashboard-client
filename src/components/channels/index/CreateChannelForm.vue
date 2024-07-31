@@ -28,7 +28,7 @@ async function submitForm() {
             {{ t('Channel names do not have to be unique, but it is strongly recommended to help keep things organised.') }}
         </div>
         <form class="createChannelForm" @submit.prevent="submitForm">
-            <input v-model="channelName" :placeholder="t('Channel name')" class="input" type="text">
+            <input v-model="channelName" :placeholder="t('Channel name')" class="input" type="text" required>
             <button class="button">{{ t('Create channel') }}</button>
         </form>
     </div>

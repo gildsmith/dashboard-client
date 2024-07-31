@@ -1,5 +1,4 @@
 {
-  "Channel Localization Matrix": "Matryca Lokalizacji Kanałów",
   "Channel name": "Nazwa kanału",
   "Channel names do not have to be unique, but it is strongly recommended to help keep things organised.": "Nazwy kanałów nie muszą być unikalne, ale zdecydowanie zaleca się, aby pomóc w utrzymaniu porządku.",
   "Channels Management": "Zarządzanie Kanałami",
@@ -15,14 +14,17 @@
   "Default language": "Domyślny język",
   "Delete channel and all its data": "Usuń kanał i wszystkie jego dane",
   "Edit": "Edytuj",
+  "Enable maintenance": "Włącz przerwę techniczną",
+  "Disable maintenance": "Wyłącz przerwę techniczną",
   "Here you can configure which combinations of channels, currencies, and languages are allowed.": "Tutaj możesz skonfigurować, które kombinacje kanałów, walut i języków są dozwolone.",
   "Here, you can add, modify, and manage the various sales channels through which your products are sold.": "Tutaj możesz dodać, modyfikować i zarządzać kanałami sprzedaży, w których sprzedajesz produkty.",
   "Languages": "Języki",
+  "Maintenance Mode": "Przerwa Techniczna",
   "Manage sales channels, settings, and third-party integrations": "Zarządzaj kanałami sprzedaży, ustawieniami i integracjami",
   "Please note that the default language and currency cannot be removed.": "Pamiętaj, że domyślnego języka i waluty nie można usunąć",
   "Select the default language and currency that will act as fallbacks.": "Wybierz domyślny język i walutę, które będą działały jako domyślne ustawienia.",
   "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.": "Ten kanał jest domyślny i nie może zostać usunięty. W przypadku próby usunięcia, zostanie natychmiastowo utworzony ponownie z ID 1.",
-  "To display more currencies and languages, you must first enable them in the Channel Localization Matrix.": "Aby wyświetlić więcej walut i języków, musisz najpierw je włączyć w Matrycy Lokalizacji Kanałów.",
+  "To display more currencies and languages, you must first enable them for this channel.": "Aby wyświetlić więcej walut i języków, musisz najpierw je włączyć dla tego kanału.",
   "Total supported currencies:": "Łącznie wspieranych walut:",
   "Total supported languages:": "Łącznie wspieranych języków:"
 }

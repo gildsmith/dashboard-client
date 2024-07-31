@@ -1,13 +1,14 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
-import GildsmithLogo from '../components/dashboard/GildsmithLogo.vue'
-import ActionCenter from '../components/dashboard/ActionCenter.vue'
-import NaviagationPanel from '../components/dashboard/NaviagationPanel.vue'
+import GildsmithLogo from '../../components/GildsmithLogo.vue'
+import ActionCenter from '../../components/dashboard/ActionCenter.vue'
+import NaviagationPanel from '../../components/dashboard/NaviagationPanel.vue'
 import {IconChevronLeft, IconChevronRight} from '@tabler/icons-vue'
 import {computed, ref} from 'vue'
 import {useI18n} from 'vue-i18n'
-import DashboardPersonalization from '../components/dashboard/DashboardPersonalization.vue'
+import DashboardPersonalization from '../../components/dashboard/DashboardPersonalization.vue'
+import GildsmithLogomark from '../../components/GildsmithLogomark.vue'
 
 const {t} = useI18n()
 
@@ -50,6 +51,7 @@ const dashboardClasses = computed(() => ({
                     <IconChevronLeft v-else size="24" stroke="2"/>
                 </div>
             </div>
+            <GildsmithLogomark class="dashboardLogomark"/>
             <NaviagationPanel/>
             <DashboardPersonalization/>
         </div>
@@ -114,6 +116,14 @@ body {
     @apply hidden;
 }
 
+.dashboardLogomark {
+    @apply mx-auto my-4 hidden;
+}
+
+.dashboard--left-folded .dashboardLogomark {
+    @apply block;
+}
+
 /* Action Center Box */
 .dashboardActionCenterTitle {
     @apply ml-auto;
@@ -123,9 +133,9 @@ body {
     @apply hidden;
 }
 
-/* Personalization Box */
+/* Router View */
 .dashboardRouterView {
-    @apply grid grid-cols-2 items-start self-start gap-8 py-8;
+    @apply grid items-start self-start gap-16 py-8;
 }
 
 /* Global Scrollbar Styles */
@@ -159,7 +169,7 @@ body {
 }
 
 .button {
-    @apply bg-slate-950 text-white py-2 px-4 border-none rounded-full cursor-pointer;
+    @apply flex items-center gap-2 bg-white py-2 px-4 border cursor-pointer;
 }
 
 .header {
@@ -171,11 +181,31 @@ body {
 }
 
 .description {
-    @apply text-slate-600 max-w-96 block;
+    @apply text-slate-600 max-w-lg block;
 }
 
 .footnote {
-    @apply text-sm italic;
+    @apply text-slate-500 text-sm italic;
+}
+
+.error {
+    @apply font-medium text-red-500;
+}
+
+.section {
+    @apply grid gap-4;
+}
+
+.list {
+    @apply border bg-white;
+}
+
+.listElement {
+    @apply p-4 flex-1 flex items-center gap-8;
+}
+
+.listElement:not(:last-of-type) {
+    @apply border-b;
 }
 
 /* This fixes Tabler icons being squashed by flex content */
