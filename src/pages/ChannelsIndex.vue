@@ -33,20 +33,20 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="pageHeader">
-        <h1 class="pageTitle header">{{ t('Channels Management') }}</h1>
-        <span class="description">
+    <div class="channels-index">
+        <div class="pageHeader">
+            <h1 class="pageTitle header">{{ t('Channels Management') }}</h1>
+            <span class="description">
             {{ t('Here, you can add, modify, and manage the various sales channels through which your products are sold.') }}
         </span>
-    </div>
-    <div class="createChannelContainer">
+        </div>
         <CreateChannelForm/>
+        <ChannelCard v-for="channel in channelsStore.channels" :key="channel.id" :channel="channel"/>
     </div>
-    <ChannelCard v-for="channel in channelsStore.channels" :key="channel.id" :channel="channel"/>
 </template>
 
 <style scoped>
-.createChannelContainer {
-    @apply col-span-2 grid grid-cols-2 gap-8;
+.channels-index {
+    @apply grid gap-8;
 }
 </style>

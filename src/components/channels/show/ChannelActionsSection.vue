@@ -10,7 +10,6 @@ const router = useRouter()
 const {t} = useI18n()
 
 function redirectOnDelete() {
-    // todo isn't triggered all of a sudden.
     router.push({name: 'dashboard.channels.index'})
 }
 </script>
@@ -19,38 +18,41 @@ function redirectOnDelete() {
     <div class="section">
         <h2 class="subheader">{{ t('Actions') }}</h2>
         <div class="list">
-            <div class="listElement">
-                <div class="actionInfo">
-                    <div class="actionName">{{ t('Maintenance Mode') }}</div>
-                    <div class="actionDescription description">Ten kanał jest domyślny i nie może zostać usunięty. W przypadku próby usunięcia, zostanie
-                        natychmiastowo utworzony ponownie z ID 1.
+            <div class="list-item">
+                <div class="action-text-wrapper">
+                    <div class="action-name">{{ t('Maintenance Mode') }}</div>
+                    <div class="action-description footnote">
+                        {{ t('When enabled, this mode blocks all requests except crucial ones, such as payment notifications from payment gateways.') }}
                     </div>
                 </div>
                 <ToggleMaintenanceMode :channel="channel"/>
             </div>
-            <div class="listElement">
-                <div class="actionInfo">
-                    <div class="actionName">{{ t('Delete Channel') }}</div>
-                    <div class="actionDescription description">Ten kanał jest domyślny i nie może zostać usunięty. W przypadku próby usunięcia, zostanie
-                        natychmiastowo utworzony ponownie z ID 1.
+            <div class="list-item">
+                <div class="action-text-wrapper">
+                    <div class="action-name">{{ t('Delete Channel') }}</div>
+                    <div class="action-description footnote" v-if="channel.id === 1">
+                        {{ t('This channel is default and cannot be deleted. If attempted, it will be immediately recreated with ID 1.') }}
+                    </div>
+                    <div class="action-description footnote" v-else>
+                        {{ t('Deleting this channel is a permanent action that will remove all associated data forever! And that\'s a very long time.') }}
                     </div>
                 </div>
-                <DeleteChannelButton :channel="channel" @channelDeleted="redirectOnDelete()"/>
+                <DeleteChannelButton :channel="channel" @channelDeleted="redirectOnDelete"/>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-.actionInfo {
+.action-text-wrapper {
     @apply flex-1 grid gap-1;
 }
 
-.actionName {
+.action-name {
     @apply font-medium;
 }
 
-.actionDescription {
+.action-description {
     @apply max-w-lg;
 }
 </style>

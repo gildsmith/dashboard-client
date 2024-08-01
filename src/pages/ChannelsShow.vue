@@ -2,14 +2,13 @@
 import {useChannelsStore} from '../stores/channels.js'
 import {computed, onMounted, onUnmounted} from 'vue'
 import ChannelEssentialsSection from '../components/channels/show/ChannelEssentialsSection.vue'
-import ChannelDefaultsSection from '../components/channels/show/ChannelDefaultsSection.vue'
-import ChannelLocalizationSection from '../components/channels/show/ChannelLocalizationSection.vue'
 import StatusHandler from '../components/dashboard/status/StatusHandler.vue'
 import ChannelActionsSection from '../components/channels/show/ChannelActionsSection.vue'
 import ChannelLanguagesSections from '../components/channels/show/ChannelLanguagesSections.vue'
 import ChannelCurrenciesSection from '../components/channels/show/ChannelCurrenciesSection.vue'
+import ChannelDefaultsSection from '../components/channels/show/ChannelDefaultsSection.vue'
 
-// TODO create an event listener on when the channel is updated or deleted.
+// TODO create an event listener on when the channel is updatsed or deleted.
 
 const props = defineProps(['id'])
 const echoChannel = window.Echo.private('gildsmith.dashboard.channels')
@@ -70,6 +69,7 @@ onUnmounted(() => {
         <ChannelActionsSection :channel="channel"/>
     </template>
     <template v-else>
+        <!-- TODO -->
         There's nothing in here.
         If this screen just appearead out of the blue, chances are that the channel was removed.
     </template>

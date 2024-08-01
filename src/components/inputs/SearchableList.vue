@@ -63,13 +63,13 @@ function isChecked(value) {
 </script>
 
 <template>
-    <div class="selectContainer">
-        <div class="selectInputWrapper input">
-            <input v-model="search" :placeholder="t(placeholder)" class="selectInput" type="text" @keyup.enter="submitOption">
+    <div class="input-container">
+        <div class="input-wrapper input">
+            <input v-model="search" :placeholder="t(placeholder)" class="search-input" type="text" @keyup.enter="submitOption">
             <input v-model="model" type="hidden"/>
         </div>
-        <div class="selectOptionsContainer">
-            <div v-for="(o, k) in filteredOptions" :key="k" class="selectOption" @click="clickOption(o.value)">
+        <div class="options-container">
+            <div v-for="(o, k) in filteredOptions" :key="k" class="option" @click="clickOption(o.value)">
                 <span>{{ o.name }}</span>
             </div>
         </div>
@@ -77,24 +77,24 @@ function isChecked(value) {
 </template>
 
 <style scoped>
-.selectContainer {
+.input-container {
     @apply relative;
 }
 
-.selectInputWrapper {
+.input-wrapper {
     @apply bg-white flex items-center justify-between relative;
 }
 
-.selectInput {
+.search-input {
     @apply flex-1 outline-none;
     @apply placeholder:text-inherit;
 }
 
-.selectOptionsContainer {
+.options-container {
     @apply bg-white border-x border-b left-0 right-0 max-h-64 overflow-y-scroll z-10;
 }
 
-.selectOption {
+.option {
     @apply hover:bg-slate-100 p-2 flex items-center gap-2 cursor-pointer;
 }
 </style>

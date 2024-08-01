@@ -1,19 +1,25 @@
 <script setup>
-
-import {useI18n} from 'vue-i18n'
 import {computed} from 'vue'
 import SearchableDropdown from '../../inputs/SearchableDropdown.vue'
 import {useChannelsStore} from '../../../stores/channels.js'
+import {useI18n} from 'vue-i18n'
 import {useUpdateChannel} from '../../../composables/channels/updateChannel.ts'
 
 const {t} = useI18n()
+const {submit} = useUpdateChannel()
 const props = defineProps(['channel'])
 const channelsStore = useChannelsStore()
-const {submit} = useUpdateChannel()
 
-const languageOptions = computed(() => {
+/**
+ * Generates options for a dropdown component that lists
+ * the currently selected languages. Each option includes
+ * a translated name and a unique identifier.
+ *
+ * @see SearchableDropdown
+ */
+const languagesDropdownOptions = computed(() => {
     return props.channel.languages.map(language => {
-        let translatedName = t('language.' + language.code.toLowerCase())
+        const translatedName = t('language.' + language.code.toLowerCase())
         return {
             value: language.id,
             name: translatedName,
@@ -22,7 +28,14 @@ const languageOptions = computed(() => {
     })
 })
 
-const currencyOptions = computed(() => {
+/**
+ * Generates options for a dropdown component that lists
+ * the currently selected currencies. Each option includes
+ * a translated name and a unique identifier.
+ *
+ * @see SearchableDropdown
+ */
+const currenciesDropdownOptions = computed(() => {
     return props.channel.currencies.map(currency => {
         let translatedName = t('currency.' + currency.code.toLowerCase())
         return {
@@ -33,34 +46,36 @@ const currencyOptions = computed(() => {
     })
 })
 
-// TODO move to composables
-async function updateDefaultCurrency(v) {
-    const response = await submit(props.channel.id, {default_currency_id: v})
+async function updateDefaultLanguage(v) {
+    const response = await submit(props.channel.id, {default_language_id: v})
     await channelsStore.upsert(response.data)
 }
 
-async function updateDefaultLanguage(v) {
-    const response = await submit(props.channel.id, {default_language_id: v})
+async function updateDefaultCurrency(v) {
+    const response = await submit(props.channel.id, {default_currency_id: v})
     await channelsStore.upsert(response.data)
 }
 </script>
 
 <template>
-    <div class="channelDefaults section">
-        <h2 class="subheader">{{ t('Default Configuration') }}</h2>
-        <div class="description">{{ t('Select the default language and currency that will act as fallbacks.') }}</div>
-        <div class="description footnote">
-            {{ t('To display more currencies and languages, you must first enable them for this channel.') }}
+    <div class="list">
+        <div class="list-item">
+            <div>
+                <div>{{ t('Default language') }}</div>
+                <span class="footnote">{{ t('The default language is used when a user-selected language is not available.') }}</span>
+            </div>
+            <SearchableDropdown :modelValue="props.channel.default_language.id" :options="languagesDropdownOptions" @optionClicked="updateDefaultLanguage"/>
         </div>
-        <div class="list">
-            <div class="listElement">
-                <span class="flex-1">{{ t('Default language') }}</span>
-                <SearchableDropdown :modelValue="props.channel.default_language.id" :options="languageOptions" @optionClicked="updateDefaultLanguage"/>
+        <div class="list-item">
+            <div>
+                <h2>{{ t('Default currency') }}</h2>
+                <span class="footnote">{{ t('The default currency is used when a user-selected currency is not available.') }}</span>
             </div>
-            <div class="listElement">
-                <span class="flex-1">{{ t('Default currency') }}</span>
-                <SearchableDropdown :modelValue="props.channel.default_currency.id" :options="currencyOptions" @optionClicked="updateDefaultCurrency"/>
-            </div>
+            <SearchableDropdown :modelValue="props.channel.default_currency.id" :options="currenciesDropdownOptions" @optionClicked="updateDefaultCurrency"/>
         </div>
     </div>
 </template>
+
+<style scoped>
+
+</style>

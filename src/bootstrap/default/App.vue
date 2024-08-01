@@ -200,11 +200,11 @@ body {
     @apply border bg-white;
 }
 
-.listElement {
-    @apply p-4 flex-1 flex items-center gap-8;
+.list-item {
+    @apply p-4 flex-1 flex items-center justify-between gap-8;
 }
 
-.listElement:not(:last-of-type) {
+.list-item:not(:last-of-type) {
     @apply border-b;
 }
 

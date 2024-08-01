@@ -82,17 +82,17 @@ onUnmounted(() => document.removeEventListener('click', closeDropdown))
 </script>
 
 <template>
-    <div ref="dropdownContainer" :class="{'dropdownContainer': true,'dropdownActive': active}">
-        <div class="dropdownInputWrapper input" @click="openDropdown">
-            <input type="text" :placeholder="activeSelection" class="dropdownInput" v-model="search" @keyup.enter="submitOption">
+    <div ref="dropdownContainer" :class="{'dropdownContainer': true,'active': active}">
+        <div class="input-wrapper input" @click="openDropdown">
+            <input type="text" :placeholder="activeSelection" class="search-input" v-model="search" @keyup.enter="submitOption">
             <input v-model="model" type="hidden"/>
-            <div class="dropdownIcon">
+            <div class="icon">
                 <IconChevronDown size="16" stroke="2" v-if="!active"/>
                 <IconChevronUp size="16" stroke="2" v-if="active"/>
             </div>
         </div>
-        <div class="dropdownOptionsContainer">
-            <div v-for="(o, k) in filteredOptions" :key="k" class="dropdownOption" @click="clickOption(o.value)">
+        <div class="options-container">
+            <div v-for="(o, k) in filteredOptions" :key="k" class="option" @click="clickOption(o.value)">
                 <span>{{ o.name }}</span>
             </div>
         </div>
@@ -101,27 +101,27 @@ onUnmounted(() => document.removeEventListener('click', closeDropdown))
 
 <style scoped>
 .dropdownContainer {
-    @apply relative bg-red-500;
+    @apply relative;
 }
 
-.dropdownInputWrapper {
+.input-wrapper {
     @apply bg-white flex items-center justify-between relative;
 }
 
-.dropdownInput {
+.search-input {
     @apply flex-1 outline-none;
     @apply placeholder:text-inherit;
 }
 
-.dropdownOptionsContainer {
+.options-container {
     @apply absolute invisible bg-white border-x border-b left-0 right-0 max-h-64 overflow-y-scroll z-10 shadow-flat;
 }
 
-.dropdownActive .dropdownOptionsContainer {
+.active .options-container {
     @apply visible;
 }
 
-.dropdownOption {
+.option {
     @apply hover:bg-slate-100 p-2 cursor-pointer;
 }
 </style>

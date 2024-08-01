@@ -12,14 +12,13 @@ const {enableMaintenance, disableMaintenance} = useUpdateChannel()
 
 async function clickEnableMaintenance(channelId) {
     let channel = await enableMaintenance(channelId)
-    await channelsStore.upsert(channel)
+    await channelsStore.upsert(channel.data)
 }
 
 async function clickDisableMaintenance(channelId) {
     let channel = await disableMaintenance(channelId)
-    await channelsStore.upsert(channel)
+    await channelsStore.upsert(channel.data)
 }
-
 </script>
 
 <template>

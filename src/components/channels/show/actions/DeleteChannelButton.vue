@@ -33,6 +33,7 @@ function startCounting() {
 }
 
 async function deleteChannel() {
+    // todo seems like emit is not fired?
     await submit(props.channel.id)
     emits('channelDeleted')
 }
