@@ -1,8 +1,8 @@
 <script setup>
 import {IconTrash} from '@tabler/icons-vue'
-import {useDeleteChannel} from '../../../../composables/channels/deleteChannel.ts'
-import {ref} from 'vue'
+import {useDeleteChannel} from '../../../../composables/channels/deleteChannel.js'
 import {useI18n} from 'vue-i18n'
+import {ref} from 'vue'
 
 /*
  | ---------------------------------------------------------------------------
@@ -40,22 +40,22 @@ async function deleteChannel() {
 </script>
 
 <template>
-    <div v-if="!timeout" class="button deleteChannelPrompt" @click="startCounting">
+    <div v-if="!timeout" class="button delete-prompt" @click="startCounting">
         <IconTrash size="16" stroke="1.5"/>
         <span>{{ t('Delete channel and all its data') }}</span>
     </div>
-    <div v-if="timeout" class="button deleteChannel" @click="deleteChannel">
+    <div v-if="timeout" class="button delete-button" @click="deleteChannel">
         <IconTrash size="16" stroke="1.5"/>
         <span>{{ t('Click again to confirm deletion') }} ({{ timeout }})</span>
     </div>
 </template>
 
 <style scoped>
-.deleteChannelPrompt {
+.delete-prompt {
     @apply border-red-600 text-red-600;
 }
 
-.deleteChannel {
+.delete-button {
     @apply bg-red-600 text-white;
 }
 </style>

@@ -2,22 +2,18 @@
 import {useChannelsStore} from '../stores/channels.js'
 import {computed, onMounted, onUnmounted} from 'vue'
 import ChannelEssentialsSection from '../components/channels/show/ChannelEssentialsSection.vue'
-import StatusHandler from '../components/dashboard/status/StatusHandler.vue'
+import StatusHandler from '../components/dashboard/LoadingStatus.vue'
 import ChannelActionsSection from '../components/channels/show/ChannelActionsSection.vue'
 import ChannelLanguagesSections from '../components/channels/show/ChannelLanguagesSections.vue'
 import ChannelCurrenciesSection from '../components/channels/show/ChannelCurrenciesSection.vue'
 import ChannelDefaultsSection from '../components/channels/show/ChannelDefaultsSection.vue'
-
-// TODO create an event listener on when the channel is updatsed or deleted.
 
 const props = defineProps(['id'])
 const echoChannel = window.Echo.private('gildsmith.dashboard.channels')
 const channelsStore = useChannelsStore()
 channelsStore.fetch()
 
-const channel = computed(() => {
-    return channelsStore.find(props.id)
-})
+const channel = computed(() => channelsStore.find(props.id))
 
 function refresh() {
     channelsStore.fetch()

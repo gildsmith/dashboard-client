@@ -5,51 +5,46 @@ import {useI18n} from 'vue-i18n'
 
 const {t} = useI18n()
 const children = useRouter().getRoutes() || []
-const navChildren = computed(() => {
-    return children
-        .filter(child => child.meta?.name?.length > 1)
-        .sort((a, b) => (a.meta?.order || 0) - (b.meta?.order || 0))
-})
+const navChildren = computed(() => children
+    .filter(child => child.meta?.name?.length > 1)
+    .sort((a, b) => (a.meta?.order || 0) - (b.meta?.order || 0)))
 </script>
 
 <template>
-    <div class="navContainer">
-        <RouterLink v-for="(navItem, key) in navChildren" :key="key" :to="{name: navItem.name}" class="navLink">
+    <div class="nav-container">
+        <RouterLink v-for="(navItem, key) in navChildren" :key="key" :to="{name: navItem.name}" class="nav-link">
             <component :is="navItem.meta.icon" v-if="navItem.meta.icon" size="24" stroke="2"/>
-            <div class="navText">
-                <span class="navName">{{ t(navItem.meta.name) }}</span>
-                <span v-if="navItem.meta.description" class="navDescription">{{ t(navItem.meta.description) }}</span>
+            <div class="nav-text">
+                <span>{{ t(navItem.meta.name) }}</span>
+                <span v-if="navItem.meta.description" class="nav-description">{{ t(navItem.meta.description) }}</span>
             </div>
         </RouterLink>
     </div>
 </template>
 
 <style scoped>
-.navContainer {
+.nav-container {
     @apply flex-1;
 }
 
-.navLink {
+.nav-link {
     @apply flex gap-4 p-4 items-center;
     @apply hover:bg-slate-50;
 }
 
-.navText {
+.nav-text {
     @apply flex flex-col;
 }
 
-.navName {
-}
-
-.navDescription {
+.nav-description {
     @apply text-sm text-slate-500;
 }
 
-.dashboard--left-folded .navLink {
+.dashboard--left-folded .nav-link {
     @apply flex-col;
 }
 
-.dashboard--left-folded .navText {
+.dashboard--left-folded .nav-text {
     @apply hidden;
 }
 </style>

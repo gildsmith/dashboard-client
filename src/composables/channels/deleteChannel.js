@@ -1,4 +1,7 @@
+import axios from 'axios'
+
 export function useDeleteChannel() {
+
     async function submit(id) {
         return await axios.delete('/api/channels/' + id)
     }

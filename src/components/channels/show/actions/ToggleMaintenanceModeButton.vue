@@ -1,12 +1,23 @@
 <script setup>
 import {IconFlag} from '@tabler/icons-vue'
 import {useChannelsStore} from '../../../../stores/channels.js'
-import {useUpdateChannel} from '../../../../composables/channels/updateChannel.ts'
+import {useUpdateChannel} from '../../../../composables/channels/updateChannel.js'
 import {useI18n} from 'vue-i18n'
+
+/*
+ | ---------------------------------------------------------------------------
+ | Toggle Maintenace Mode Button
+ | ---------------------------------------------------------------------------
+ | This component provides a quick way for users to toggle the maintenance
+ | mode on or off for a channel. When maintenance mode is enabled, the channel
+ | becomes temporarily unavailable to the public, restricting access to
+ | authenticated admins only. However, essential requests, such as incoming
+ | notifications from payment gateways, are still allowed to ensure proper
+ | functionality and processing of critical transactions.
+ */
 
 defineProps(['channel'])
 const {t} = useI18n()
-
 const channelsStore = useChannelsStore()
 const {enableMaintenance, disableMaintenance} = useUpdateChannel()
 

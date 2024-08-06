@@ -1,14 +1,14 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
-import GildsmithLogo from '../../components/GildsmithLogo.vue'
-import ActionCenter from '../../components/dashboard/ActionCenter.vue'
+import GildsmithLogo from '../../components/gildsmith/GildsmithLogo.vue'
+import ActionCenter from '../../components/dashboard/ActionCenterPanel.vue'
 import NaviagationPanel from '../../components/dashboard/NaviagationPanel.vue'
 import {IconChevronLeft, IconChevronRight} from '@tabler/icons-vue'
 import {computed, ref} from 'vue'
 import {useI18n} from 'vue-i18n'
 import DashboardPersonalization from '../../components/dashboard/DashboardPersonalization.vue'
-import GildsmithLogomark from '../../components/GildsmithLogomark.vue'
+import GildsmithLogomark from '../../components/gildsmith/GildsmithLogomark.vue'
 
 const {t} = useI18n()
 

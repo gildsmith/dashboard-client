@@ -84,7 +84,7 @@ onUnmounted(() => document.removeEventListener('click', closeDropdown))
 <template>
     <div ref="dropdownContainer" :class="{'dropdownContainer': true,'active': active}">
         <div class="input-wrapper input" @click="openDropdown">
-            <input type="text" :placeholder="activeSelection" class="search-input" v-model="search" @keyup.enter="submitOption">
+            <input type="text" :placeholder="activeSelection" class="search-input" v-model="search" @keyup="openDropdown" @keyup.enter="submitOption">
             <input v-model="model" type="hidden"/>
             <div class="icon">
                 <IconChevronDown size="16" stroke="2" v-if="!active"/>

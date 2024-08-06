@@ -1,26 +1,24 @@
-// noinspection JSUnresolvedReference
-// TODO Inspection temporarily disabled. Likely needs better TypeScript configuration
-
 import {onMounted, onUnmounted, ref} from 'vue'
 
 /*
  | ---------------------------------------------------------------------------
- | Connection State Composable
+ | Echo Connection State Composable
  | ---------------------------------------------------------------------------
- | This composable binds onto Pusher connection state changes to track these
- | changes and update a reactive reference.
+ | This composable allows binding into Pusher connection callbacks and track
+ | connection state reactively via echoConnectionState ref.
  */
 
-export function useConnectionState() {
-    const connectionState = ref('initialized')
+export function useEchoConnectionState() {
+
+    const echoConnectionState = ref('initialized')
 
     function stateChanged(state) {
-        connectionState.value = state.current || 'unavailable'
+        echoConnectionState.value = state.current || 'unavailable'
     }
 
     onMounted(() => window.Echo.connector.pusher.connection.bind('state_change', stateChanged))
 
     onUnmounted(() => window.Echo.connector.pusher.connection.unbind('state_change', stateChanged))
 
-    return {connectionState}
+    return {echoConnectionState}
 }

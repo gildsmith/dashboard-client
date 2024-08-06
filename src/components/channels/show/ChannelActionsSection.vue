@@ -1,6 +1,6 @@
 <script setup>
 import DeleteChannelButton from './actions/DeleteChannelButton.vue'
-import ToggleMaintenanceMode from './actions/ToggleMaintenanceMode.vue'
+import ToggleMaintenanceMode from './actions/ToggleMaintenanceModeButton.vue'
 import {useRouter} from 'vue-router'
 import {useI18n} from 'vue-i18n'
 

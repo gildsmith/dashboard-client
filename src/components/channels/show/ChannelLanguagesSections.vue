@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
 import {useI18n} from 'vue-i18n'
-import {useChannelAttachments} from '../../../composables/channels/channelAttachments.ts'
+import {useUpdateChannelRelations} from '../../../composables/channels/updateChannelRelations.js'
 import {useChannelsStore} from '../../../stores/channels.js'
 import {useDatasetsStore} from '../../../stores/datasets.js'
 import {computed} from 'vue'
@@ -10,7 +10,7 @@ import SearchableDropdown from '../../inputs/SearchableDropdown.vue'
 
 const {t} = useI18n()
 const props = defineProps(['channel'])
-const {attachLanguage, detachLanguage} = useChannelAttachments()
+const {attachLanguage, detachLanguage} = useUpdateChannelRelations()
 const channelsStore = useChannelsStore()
 const datasetsStore = useDatasetsStore()
 datasetsStore.fetchLanguages()
@@ -65,7 +65,7 @@ async function detach(languageId) {
     <div class="channel-languages section">
         <h1 class="header">{{ t('Languages') }}</h1>
         <span class="description">{{ t('This section allows you to manage the list of available languages for this channel.') }}</span>
-        <div class="channels-languages-list list">
+        <div class="list">
             <div v-for="language in channel.languages" :key="language.id" class="list-item">
                 <span>{{ t('language.' + language.code) }}</span>
                 <IconTrash v-if="language.id !== channel.default_language.id" size="16" stroke="2" @click="detach(language.id)"/>

@@ -1,7 +1,8 @@
 <script setup>
 import {useI18n} from 'vue-i18n'
-import {useCreateChannel} from '../../../composables/channels/createChannel.ts'
+import {useCreateChannel} from '../../../composables/channels/createChannel.js'
 import {useChannelsStore} from '../../../stores/channels.js'
+import {ref} from 'vue'
 
 /*
  | ---------------------------------------------------------------------------
@@ -12,42 +13,39 @@ import {useChannelsStore} from '../../../stores/channels.js'
  */
 
 const {t} = useI18n()
-const {channelName, submit} = useCreateChannel()
+const input = ref('')
+const {submit} = useCreateChannel()
 const channelsStore = useChannelsStore()
 
 async function submitForm() {
-    const channel = await submit()
-    await channelsStore.upsert(channel)
+    const channel = await submit(input.value)
+    await channelsStore.upsert(channel.data)
 }
 </script>
 
 <template>
-    <div class="createChannelFormContainer">
-        <h2 class="createChannelName subheader">{{ t('Create a new channel') }}</h2>
-        <div class="createChannelDescription">
+    <div class="form-container">
+        <h2 class="subheader">{{ t('Create a new channel') }}</h2>
+        <div class="footnote">
             {{ t('Channel names do not have to be unique, but it is strongly recommended to help keep things organised.') }}
         </div>
-        <form class="createChannelForm" @submit.prevent="submitForm">
-            <input v-model="channelName" :placeholder="t('Channel name')" class="input" type="text" required>
+        <form class="form-wrapper" @submit.prevent="submitForm">
+            <input v-model="input" :placeholder="t('Channel name')" class="input" type="text" required>
             <button class="button">{{ t('Create channel') }}</button>
         </form>
     </div>
 </template>
 
 <style scoped>
-.createChannelFormContainer {
+.form-container {
     @apply border p-4 bg-white grid gap-2;
 }
 
-.createChannelForm {
+.form-wrapper {
     @apply flex gap-4;
 }
 
-.createChannelDescription {
-    @apply max-w-96 text-sm;
-}
-
-.createChannelForm .input {
+.form-wrapper .input {
     @apply flex-1;
 }
 </style>

@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
 import {useI18n} from 'vue-i18n'
-import {useChannelAttachments} from '../../../composables/channels/channelAttachments.ts'
+import {useUpdateChannelRelations} from '../../../composables/channels/updateChannelRelations.js'
 import {useChannelsStore} from '../../../stores/channels.js'
 import {useDatasetsStore} from '../../../stores/datasets.js'
 import {computed} from 'vue'
@@ -10,7 +10,7 @@ import SearchableDropdown from '../../inputs/SearchableDropdown.vue'
 
 const {t} = useI18n()
 const props = defineProps(['channel'])
-const {attachCurrency, detachCurrency} = useChannelAttachments()
+const {attachCurrency, detachCurrency} = useUpdateChannelRelations()
 const channelsStore = useChannelsStore()
 const datasetsStore = useDatasetsStore()
 datasetsStore.fetchCurrencies()

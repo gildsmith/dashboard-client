@@ -1,7 +1,8 @@
+import axios from 'axios'
 
-export function useChannelAttachments() {
+export function useUpdateChannelRelations() {
+
     async function attachCurrency(channelId, currencyId) {
-        // TODO IDE doesn't recognise .post
         return await axios.post('/api/channels/' + channelId + '/currencies', {currency: currencyId})
     }
 
