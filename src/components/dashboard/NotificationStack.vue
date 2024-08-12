@@ -37,7 +37,7 @@ const getRandomNotification = () => [
 .notifications-stack {
     @apply block;
 }
-.dashboard--right-folded .notifications-stack {
+.dashboard--right-panel-folded .notifications-stack {
     @apply hidden;
 }
 
@@ -49,7 +49,7 @@ const getRandomNotification = () => [
 }
 
 .notification {
-    @apply border-b border-b-slate-100 p-4;
+    @apply border-b border-b-slate-100 p-4 cursor-pointer;
 }
 
 .notification-wrapper:hover .notification {

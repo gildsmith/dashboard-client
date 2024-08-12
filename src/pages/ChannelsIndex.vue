@@ -37,8 +37,8 @@ onUnmounted(() => {
         <div class="pageHeader">
             <h1 class="pageTitle header">{{ t('Channels Management') }}</h1>
             <span class="description">
-            {{ t('Here, you can add, modify, and manage the various sales channels through which your products are sold.') }}
-        </span>
+                {{ t('Here, you can add, modify, and manage the various sales channels through which your products are sold.') }}
+            </span>
         </div>
         <CreateChannelForm/>
         <ChannelCard v-for="channel in channelsStore.channels" :key="channel.id" :channel="channel"/>

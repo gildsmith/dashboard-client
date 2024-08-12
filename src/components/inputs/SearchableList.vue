@@ -19,10 +19,6 @@ const props = defineProps({
     },
 })
 
-/*
- * This computed value enables filtering through different representations (tokens)
- * of values, allowing for case-insensitive matching on both code and full name.
- */
 const filteredOptions = computed(() => {
     return search.value.length === 0
         ? props.options
@@ -31,9 +27,6 @@ const filteredOptions = computed(() => {
         })
 })
 
-/*
- * Todo this allows submitting the input on hitting enter
- */
 function submitOption() {
     if (filteredOptions.value.length > 0)
         clickOption(filteredOptions.value[0].value)
@@ -41,16 +34,10 @@ function submitOption() {
     search.value = ''
 }
 
-/*
- * todo This function is triggered when an option is clicked. It emits clicked value, as well as updates model if it's provided and correct.
- */
 function clickOption(value) {
     emits('optionClicked', value, !isChecked(value))
 }
 
-/*
- * todo This method checks whether the model equals or contains (in case of arrays) the value.
- */
 function isChecked(value) {
     if (Number.isInteger(model.value)) {
         return model.value === value.value

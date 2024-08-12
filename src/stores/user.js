@@ -2,6 +2,13 @@
 
 import {defineStore} from 'pinia'
 
+/*
+ | ---------------------------------------------------------------------------
+ | User Store
+ | ---------------------------------------------------------------------------
+ | Manages the user state within the application.
+ */
+
 export const useUserStore = defineStore('user', {
     state: () => ({
         fetched: false,
@@ -15,8 +22,7 @@ export const useUserStore = defineStore('user', {
             await axios.get('/api/authentication/user').then(response => {
                 this.user = response.data
                 this.fetched = true
-            }).catch(() => {
-            })
+            }).catch(() => {})
         },
         invalidate() {
             this.fetched = false

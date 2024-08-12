@@ -40,11 +40,11 @@ const navChildren = computed(() => children
     @apply text-sm text-slate-500;
 }
 
-.dashboard--left-folded .nav-link {
+.dashboard--left-panel-folded .nav-link {
     @apply flex-col;
 }
 
-.dashboard--left-folded .nav-text {
+.dashboard--left-panel-folded .nav-text {
     @apply hidden;
 }
 </style>

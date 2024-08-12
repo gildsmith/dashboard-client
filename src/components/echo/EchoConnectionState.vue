@@ -43,7 +43,7 @@ const {echoConnectionState} = useEchoConnectionState()
     @apply bg-amber-200;
 }
 
-.dashboard--right-folded .state {
+.dashboard--right-panel-folded .state {
     @apply py-4;
 }
 
@@ -51,11 +51,11 @@ const {echoConnectionState} = useEchoConnectionState()
     @apply text-sm;
 }
 
-.dashboard--right-folded .state {
+.dashboard--right-panel-folded .state {
     @apply justify-center;
 }
 
-.dashboard--right-folded .state-text {
+.dashboard--right-panel-folded .state-text {
     @apply hidden;
 }
 </style>

@@ -3,6 +3,16 @@ import DashboardIndex from '../../pages/DashboardIndex.vue'
 import {IconDashboard, IconWorld} from '@tabler/icons-vue'
 import ChannelsShow from '../../pages/ChannelsShow.vue'
 
+/*
+ | ---------------------------------------------------------------------------
+ | Default Routes Configuration
+ | ---------------------------------------------------------------------------
+ | This file defines the default routes with associated Vue components and
+ | metadata. Each route can include an icon from '@tabler/icons-vue' and an
+ | 'order' value that determines its position in the navigation, where lower
+ | numbers appear first.
+ */
+
 export default [
     {
         name: 'dashboard.index',

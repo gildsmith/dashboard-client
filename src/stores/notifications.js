@@ -1,5 +1,12 @@
 import {defineStore} from 'pinia'
 
+/*
+ | ---------------------------------------------------------------------------
+ | Notifications Store
+ | ---------------------------------------------------------------------------
+ | Manages the lifecycle of notifications within the application.
+ */
+
 export const useNotificationsStore = defineStore('notifications', {
     state: () => ({
         notifications: [],

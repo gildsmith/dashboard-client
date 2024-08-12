@@ -2,10 +2,9 @@ import {onMounted, onUnmounted, ref} from 'vue'
 
 /*
  | ---------------------------------------------------------------------------
- | Echo Connection State Composable
+ | Datasets Store
  | ---------------------------------------------------------------------------
- | This composable allows binding into Pusher connection callbacks and track
- | connection state reactively via echoConnectionState ref.
+ | This store is responsible for fetching basic datasets from Gildsmith API.
  */
 
 export function useEchoConnectionState() {

@@ -1,14 +1,22 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
+import DashboardPersonalization from '../../components/dashboard/DashboardPersonalization.vue'
+import GildsmithLogomark from '../../components/gildsmith/GildsmithLogomark.vue'
 import GildsmithLogo from '../../components/gildsmith/GildsmithLogo.vue'
 import ActionCenter from '../../components/dashboard/ActionCenterPanel.vue'
 import NaviagationPanel from '../../components/dashboard/NaviagationPanel.vue'
 import {IconChevronLeft, IconChevronRight} from '@tabler/icons-vue'
 import {computed, ref} from 'vue'
 import {useI18n} from 'vue-i18n'
-import DashboardPersonalization from '../../components/dashboard/DashboardPersonalization.vue'
-import GildsmithLogomark from '../../components/gildsmith/GildsmithLogomark.vue'
+
+/*
+ | ---------------------------------------------------------------------------
+ | Default Dashboard Root
+ | ---------------------------------------------------------------------------
+ | This is the default component for the dashboard root. It loads
+ | automatically unless a custom one exists at @/gildsmith/dashboard/App.vue.
+ */
 
 const {t} = useI18n()
 
@@ -21,50 +29,50 @@ const {t} = useI18n()
  | the user's preference.
  */
 
-const isLeftPanelFolded = ref(localStorage.getItem('theme-left-folded') === 'true')
-const isRightPanelFolded = ref(localStorage.getItem('theme-right-folded') === 'true')
+const isLeftPanelFolded = ref(localStorage.getItem('theme-left-panel-folded') === 'true')
+const isRightPanelFolded = ref(localStorage.getItem('theme-right-panel-folded') === 'true')
 
-function toggleLeftPanel() {
+function foldLeftPanel() {
     isLeftPanelFolded.value = !isLeftPanelFolded.value
-    localStorage.setItem('theme-left-folded', isLeftPanelFolded.value.toString())
+    localStorage.setItem('theme-left-panel-folded', isLeftPanelFolded.value.toString())
 }
 
-function toggleRightPanel() {
+function foldRightPanel() {
     isRightPanelFolded.value = !isRightPanelFolded.value
-    localStorage.setItem('theme-right-folded', isRightPanelFolded.value.toString())
+    localStorage.setItem('theme-right-panel-folded', isRightPanelFolded.value.toString())
 }
 
 const dashboardClasses = computed(() => ({
     'dashboard': true,
-    'dashboard--left-folded': isLeftPanelFolded.value,
-    'dashboard--right-folded': isRightPanelFolded.value,
+    'dashboard--left-panel-folded': isLeftPanelFolded.value,
+    'dashboard--right-panel-folded': isRightPanelFolded.value,
 }))
 </script>
 
 <template>
     <div :class="dashboardClasses">
-        <div class="dashboardPanel dashboardPanel--left">
-            <div class="dashboardPanelHeader">
-                <GildsmithLogo class="dashboardLogo"/>
-                <div class="dashboardThemeButton" @click="toggleLeftPanel">
+        <div class="dashboard-panel dashboard-panel--left">
+            <div class="dashboard-panel-header">
+                <GildsmithLogo class="logo"/>
+                <div class="fold-panel-button" @click="foldLeftPanel">
                     <IconChevronRight v-if="isLeftPanelFolded" size="24" stroke="2"/>
                     <IconChevronLeft v-else size="24" stroke="2"/>
                 </div>
             </div>
-            <GildsmithLogomark class="dashboardLogomark"/>
+            <GildsmithLogomark class="logomark"/>
             <NaviagationPanel/>
             <DashboardPersonalization/>
         </div>
-        <div class="dashboardRouterView">
+        <div class="router-view">
             <RouterView/>
         </div>
-        <div class="dashboardPanel dashboardPanel--right">
-            <div class="dashboardPanelHeader">
-                <div class="dashboardThemeButton" @click="toggleRightPanel">
+        <div class="dashboard-panel dashboard-panel--right">
+            <div class="dashboard-panel-header">
+                <div class="fold-panel-button" @click="foldRightPanel">
                     <IconChevronLeft v-if="isRightPanelFolded" size="24" stroke="2"/>
                     <IconChevronRight v-else size="24" stroke="2"/>
                 </div>
-                <div class="dashboardActionCenterTitle">{{ t('Action Center') }}</div>
+                <div class="action-center-title">{{ t('Action Center') }}</div>
             </div>
             <ActionCenter/>
         </div>
@@ -76,69 +84,64 @@ body {
     @apply bg-slate-50 antialiased;
 }
 
-/* Dashboard & Folding Adjustment */
+/*
+ * Following styles describe the sizes of all
+ * grid columns, as well as styles to some core
+ * elements present on side panels.
+ */
 .dashboard {
     @apply grid mx-auto gap-16 min-h-full;
     grid-template-columns: 20em auto 20em;
 }
 
-.dashboard.dashboard--left-folded {
+.dashboard.dashboard--left-panel-folded {
     grid-template-columns: 5em auto 20em;
 }
 
-.dashboard.dashboard--right-folded {
+.dashboard.dashboard--right-panel-folded {
     grid-template-columns: 20em auto 5em;
 }
 
-.dashboard.dashboard--left-folded.dashboard--right-folded {
+.dashboard.dashboard--left-panel-folded.dashboard--right-panel-folded {
     grid-template-columns: 5em auto 5em;
 }
 
-/* Side Foldanle Panels */
-.dashboardPanel {
-    @apply overflow-y-auto overflow-x-hidden sticky border-x h-full max-h-dvh bg-white top-0;
-}
-
-.dashboardPanelHeader {
-    @apply flex items-center justify-center p-4 border-b border-slate-100 sticky top-0 bg-white;
-}
-
-.dashboardThemeButton {
-    @apply p-2 border cursor-pointer;
-}
-
-/* Logo Box */
-.dashboardLogo {
-    @apply mr-auto;
-}
-
-.dashboard--left-folded .dashboardLogo {
-    @apply hidden;
-}
-
-.dashboardLogomark {
-    @apply mx-auto my-4 hidden;
-}
-
-.dashboard--left-folded .dashboardLogomark {
-    @apply block;
-}
-
-/* Action Center Box */
-.dashboardActionCenterTitle {
-    @apply ml-auto;
-}
-
-.dashboard--right-folded .dashboardActionCenterTitle {
-    @apply hidden;
-}
-
-/* Router View */
-.dashboardRouterView {
+.router-view {
     @apply grid items-start self-start gap-16 py-8;
 }
 
-/* Global Scrollbar Styles */
+.dashboard-panel {
+    @apply overflow-y-auto overflow-x-hidden sticky border-x h-full max-h-dvh bg-white top-0;
+}
+
+.dashboard-panel-header {
+    @apply flex items-center justify-between p-4 border-b border-slate-100 sticky top-0 bg-white;
+}
+
+.fold-panel-button {
+    @apply p-2 border cursor-pointer rounded-full;
+}
+
+.dashboard--left-panel-folded .logo {
+    @apply hidden;
+}
+
+.logomark {
+    @apply mx-auto my-4 hidden;
+}
+
+.dashboard--left-panel-folded .logomark {
+    @apply block;
+}
+
+.dashboard--right-panel-folded .action-center-title {
+    @apply hidden;
+}
+
+/*
+ * This section contains rules related to
+ * scrollbar styling.
+ */
 ::-webkit-scrollbar {
     height: 1rem;
     width: .5rem
@@ -163,7 +166,11 @@ body {
     @apply bg-slate-300;
 }
 
-/* Common Global Styles */
+/*
+ * These part of styles are considered global, meaning
+ * you can safely use them within your own components
+ * to keep the style of the dashboard uniform.
+ */
 .input {
     @apply border border-slate-200 py-2 px-3 rounded-none;
 }
@@ -208,7 +215,10 @@ body {
     @apply border-b;
 }
 
-/* This fixes Tabler icons being squashed by flex content */
+/*
+ * This simple fix stops Tabler Icons
+ * from being squashed by flex content
+ */
 .tabler-icon {
     @apply shrink-0;
 }

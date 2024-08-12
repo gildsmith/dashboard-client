@@ -13,7 +13,7 @@ import LanguageSelect from './LanguageSelectDropdown.vue'
     @apply p-4 flex border-t border-t-slate-100 items-stretch sticky bottom-0 bg-white gap-4;
 }
 
-.dashboard--left-folded .personalization-container {
+.dashboard--left-panel-folded .personalization-container {
     @apply hidden;
 }
 

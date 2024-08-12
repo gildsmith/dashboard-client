@@ -14,7 +14,6 @@ const {t} = useI18n()
 </template>
 
 <style scoped>
-
 .maintenance {
     @apply flex items-center gap-2 px-4 py-3 bg-slate-950 text-white text-sm;
 }
