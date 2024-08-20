@@ -31,7 +31,7 @@ const {t} = useI18n()
                 <IconFlagFilled v-else class="channel-status--maintenance" size="16" stroke="2"/>
             </div>
         </div>
-        <div v-if="channel.description" class="channel-description">{{ t(channel.description) }}</div>
+        <div v-if="channel.description" class="channel-description footnote">{{ t(channel.description) }}</div>
         <div class="channel-actions">
             <RouterLink :to="{ name: 'dashboard.channels.show', params: { id: channel.id }}" class="button">
                 <IconSettings2 size="16" stroke="2"/>
@@ -63,7 +63,7 @@ const {t} = useI18n()
 }
 
 .channel-description {
-    @apply text-sm m-4;
+    @apply m-4;
 }
 
 .channel-status--active {

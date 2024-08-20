@@ -190,11 +190,11 @@ body {
 }
 
 .description {
-    @apply text-slate-600 max-w-lg block;
+    @apply text-slate-500 block;
 }
 
 .footnote {
-    @apply text-slate-500 text-sm italic;
+    @apply text-slate-500 text-sm;
 }
 
 .error {

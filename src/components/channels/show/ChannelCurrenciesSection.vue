@@ -63,7 +63,6 @@ async function detach(currencyId) {
 <template>
     <div class="channel-currencies section">
         <h1 class="subheader">{{ t('Currencies') }}</h1>
-        <span class="description">{{ t('This section allows you to manage the list of available currencies for this channel.') }}</span>
         <div class="list">
             <div v-for="currency in channel.currencies" :key="currency.id" class="list-item">
                 <span>{{ t('currency.' + currency.code) }}</span>

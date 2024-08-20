@@ -65,7 +65,6 @@ async function detach(languageId) {
 <template>
     <div class="channel-languages section">
         <h2 class="subheader">{{ t('Languages') }}</h2>
-        <span class="description">{{ t('This section allows you to manage the list of available languages for this channel.') }}</span>
         <div class="list">
             <div v-for="language in channel.languages" :key="language.id" class="list-item">
                 <span>{{ t('language.' + language.code) }}</span>
