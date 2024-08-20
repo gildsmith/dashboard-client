@@ -12,7 +12,7 @@ const props = defineProps({
         type: Array,
         required: true,
         default: () => [],
-    }
+    },
 })
 
 const activeSelection = computed(() => {
@@ -68,11 +68,11 @@ onUnmounted(() => document.removeEventListener('click', closeDropdown))
 <template>
     <div ref="dropdownContainer" :class="{'dropdownContainer': true,'active': active}">
         <div class="input-wrapper input" @click="openDropdown">
-            <input type="text" :placeholder="activeSelection" class="search-input" v-model="search" @keyup="openDropdown" @keyup.enter="submitOption">
+            <input v-model="search" :placeholder="activeSelection" class="search-input" type="text" @keyup="openDropdown" @keyup.enter="submitOption">
             <input v-model="model" type="hidden"/>
             <div class="icon">
-                <IconChevronDown size="16" stroke="2" v-if="!active"/>
-                <IconChevronUp size="16" stroke="2" v-if="active"/>
+                <IconChevronDown v-if="!active" size="16" stroke="2"/>
+                <IconChevronUp v-if="active" size="16" stroke="2"/>
             </div>
         </div>
         <div class="options-container">

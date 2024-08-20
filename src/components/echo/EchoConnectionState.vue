@@ -1,7 +1,8 @@
 <script setup>
-import {useEchoConnectionState} from '../../composables/echo/echoConnectionState.js'
 import {IconLoader, IconMoodPuzzled} from '@tabler/icons-vue'
 import {useI18n} from 'vue-i18n'
+
+import {useEchoConnectionState} from '../../composables/echo/echoConnectionState.js'
 
 /*
  | ---------------------------------------------------------------------------

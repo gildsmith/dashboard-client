@@ -1,8 +1,9 @@
 <script setup>
 import {IconTrash} from '@tabler/icons-vue'
-import {useDeleteChannel} from '../../../../composables/channels/deleteChannel.js'
-import {useI18n} from 'vue-i18n'
 import {ref} from 'vue'
+import {useI18n} from 'vue-i18n'
+
+import {useDeleteChannel} from '../../../../composables/channels/deleteChannel.js'
 
 /*
  | ---------------------------------------------------------------------------

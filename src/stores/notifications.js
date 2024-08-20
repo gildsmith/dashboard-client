@@ -20,6 +20,6 @@ export const useNotificationsStore = defineStore('notifications', {
         },
         remove(id) {
             this.notifications = this.notifications.filter(n => n.id !== id)
-        }
+        },
     },
 })

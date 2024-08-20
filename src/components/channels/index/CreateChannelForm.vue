@@ -1,8 +1,9 @@
 <script setup>
+import {ref} from 'vue'
 import {useI18n} from 'vue-i18n'
+
 import {useCreateChannel} from '../../../composables/channels/createChannel.js'
 import {useChannelsStore} from '../../../stores/channels.js'
-import {ref} from 'vue'
 
 /*
  | ---------------------------------------------------------------------------
@@ -25,12 +26,12 @@ async function submitForm() {
 
 <template>
     <div class="form-container">
-        <h2 class="subheader">{{ t('Create a new channel') }}</h2>
-        <div class="footnote">
+        <h2 class="subheader">{{ t('Create new channel') }}</h2>
+        <div class="form-description footnote">
             {{ t('Channel names do not have to be unique, but it is strongly recommended to help keep things organised.') }}
         </div>
         <form class="form-wrapper" @submit.prevent="submitForm">
-            <input v-model="input" :placeholder="t('Channel name')" class="input" type="text" required>
+            <input v-model="input" :placeholder="t('Channel name')" class="input" required type="text">
             <button class="button">{{ t('Create channel') }}</button>
         </form>
     </div>
@@ -38,11 +39,15 @@ async function submitForm() {
 
 <style scoped>
 .form-container {
-    @apply border p-4 bg-white grid gap-2;
+    @apply p-4 bg-white flex flex-col gap-2 shadow rounded col-span-2;
+}
+
+.form-description {
+    @apply max-w-96;
 }
 
 .form-wrapper {
-    @apply flex gap-4;
+    @apply flex gap-4 mt-auto;
 }
 
 .form-wrapper .input {

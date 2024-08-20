@@ -1,8 +1,9 @@
 <script setup>
+import {onMounted, onUnmounted} from 'vue'
+import {useI18n} from 'vue-i18n'
+
 import ChannelCard from '../components/channels/index/ChannelCard.vue'
 import CreateChannelForm from '../components/channels/index/CreateChannelForm.vue'
-import {useI18n} from 'vue-i18n'
-import {onMounted, onUnmounted} from 'vue'
 import {useChannelsStore} from '../stores/channels.js'
 
 const {t} = useI18n()
@@ -40,13 +41,19 @@ onUnmounted(() => {
                 {{ t('Here, you can add, modify, and manage the various sales channels through which your products are sold.') }}
             </span>
         </div>
-        <CreateChannelForm/>
-        <ChannelCard v-for="channel in channelsStore.channels" :key="channel.id" :channel="channel"/>
+        <div class="channels-grid">
+            <CreateChannelForm/>
+            <ChannelCard v-for="channel in channelsStore.channels" :key="channel.id" :channel="channel"/>
+        </div>
     </div>
 </template>
 
 <style scoped>
 .channels-index {
     @apply grid gap-8;
+}
+
+.channels-grid {
+    @apply grid gap-8 grid-cols-3;
 }
 </style>

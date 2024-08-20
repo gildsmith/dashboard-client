@@ -1,9 +1,10 @@
 <script setup>
 import {computed} from 'vue'
-import SearchableDropdown from '../../inputs/SearchableDropdown.vue'
-import {useChannelsStore} from '../../../stores/channels.js'
 import {useI18n} from 'vue-i18n'
+
 import {useUpdateChannel} from '../../../composables/channels/updateChannel.js'
+import {useChannelsStore} from '../../../stores/channels.js'
+import SearchableDropdown from '../../inputs/SearchableDropdown.vue'
 
 const {t} = useI18n()
 const {submit} = useUpdateChannel()
@@ -58,20 +59,24 @@ async function updateDefaultCurrency(v) {
 </script>
 
 <template>
-    <div class="list">
-        <div class="list-item">
-            <div>
-                <div>{{ t('Default language') }}</div>
-                <span class="footnote">{{ t('The default language is used when a user-selected language is not available.') }}</span>
+    <div class="section">
+        <h2 class="subheader">Fallback values</h2>
+        <div class="list">
+            <div class="list-item">
+                <div>
+                    <div>{{ t('Default language') }}</div>
+                    <span class="footnote">{{ t('The default language is used when a user-selected language is not available.') }}</span>
+                </div>
+                <SearchableDropdown :modelValue="props.channel.default_language.id" :options="languagesDropdownOptions" @optionClicked="updateDefaultLanguage"/>
             </div>
-            <SearchableDropdown :modelValue="props.channel.default_language.id" :options="languagesDropdownOptions" @optionClicked="updateDefaultLanguage"/>
-        </div>
-        <div class="list-item">
-            <div>
-                <h2>{{ t('Default currency') }}</h2>
-                <span class="footnote">{{ t('The default currency is used when a user-selected currency is not available.') }}</span>
+            <div class="list-item">
+                <div>
+                    <h2>{{ t('Default currency') }}</h2>
+                    <span class="footnote">{{ t('The default currency is used when a user-selected currency is not available.') }}</span>
+                </div>
+                <SearchableDropdown :modelValue="props.channel.default_currency.id" :options="currenciesDropdownOptions"
+                                    @optionClicked="updateDefaultCurrency"/>
             </div>
-            <SearchableDropdown :modelValue="props.channel.default_currency.id" :options="currenciesDropdownOptions" @optionClicked="updateDefaultCurrency"/>
         </div>
     </div>
 </template>

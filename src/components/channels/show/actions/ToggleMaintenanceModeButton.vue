@@ -1,8 +1,9 @@
 <script setup>
 import {IconFlag} from '@tabler/icons-vue'
-import {useChannelsStore} from '../../../../stores/channels.js'
-import {useUpdateChannel} from '../../../../composables/channels/updateChannel.js'
 import {useI18n} from 'vue-i18n'
+
+import {useUpdateChannel} from '../../../../composables/channels/updateChannel.js'
+import {useChannelsStore} from '../../../../stores/channels.js'
 
 /*
  | ---------------------------------------------------------------------------

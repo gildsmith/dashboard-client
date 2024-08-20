@@ -1,14 +1,15 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
-import DashboardPersonalization from '../../components/dashboard/DashboardPersonalization.vue'
-import GildsmithLogomark from '../../components/gildsmith/GildsmithLogomark.vue'
-import GildsmithLogo from '../../components/gildsmith/GildsmithLogo.vue'
-import ActionCenter from '../../components/dashboard/ActionCenterPanel.vue'
-import NaviagationPanel from '../../components/dashboard/NaviagationPanel.vue'
 import {IconChevronLeft, IconChevronRight} from '@tabler/icons-vue'
 import {computed, ref} from 'vue'
 import {useI18n} from 'vue-i18n'
+
+import ActionCenter from '../../components/dashboard/ActionCenterPanel.vue'
+import DashboardPersonalization from '../../components/dashboard/DashboardPersonalization.vue'
+import NaviagationPanel from '../../components/dashboard/NaviagationPanel.vue'
+import GildsmithLogo from '../../components/gildsmith/GildsmithLogo.vue'
+import GildsmithLogomark from '../../components/gildsmith/GildsmithLogomark.vue'
 
 /*
  | ---------------------------------------------------------------------------
@@ -90,7 +91,7 @@ body {
  * elements present on side panels.
  */
 .dashboard {
-    @apply grid mx-auto gap-16 min-h-full;
+    @apply grid mx-auto gap-16 min-h-full text-slate-800;
     grid-template-columns: 20em auto 20em;
 }
 
@@ -176,11 +177,12 @@ body {
 }
 
 .button {
-    @apply flex items-center gap-2 bg-white py-2 px-4 border cursor-pointer;
+    @apply flex items-center gap-2 bg-white py-2 px-4 border cursor-pointer rounded-full text-sm;
+    @apply hover:border-slate-950 transition;
 }
 
 .header {
-    @apply text-2xl font-medium;
+    @apply text-2xl font-semibold;
 }
 
 .subheader {

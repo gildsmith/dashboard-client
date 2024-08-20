@@ -1,12 +1,14 @@
 <script setup>
-import {useChannelsStore} from '../stores/channels.js'
 import {computed, onMounted, onUnmounted} from 'vue'
-import ChannelEssentialsSection from '../components/channels/show/ChannelEssentialsSection.vue'
-import StatusHandler from '../components/dashboard/LoadingStatus.vue'
+
 import ChannelActionsSection from '../components/channels/show/ChannelActionsSection.vue'
-import ChannelLanguagesSections from '../components/channels/show/ChannelLanguagesSections.vue'
 import ChannelCurrenciesSection from '../components/channels/show/ChannelCurrenciesSection.vue'
 import ChannelDefaultsSection from '../components/channels/show/ChannelDefaultsSection.vue'
+import ChannelEssentialsSection from '../components/channels/show/ChannelEssentialsSection.vue'
+import ChannelLanguagesSections from '../components/channels/show/ChannelLanguagesSections.vue'
+import StatusHandler from '../components/dashboard/LoadingStatus.vue'
+import PageOutline from '../components/dashboard/PageOutline.vue'
+import {useChannelsStore} from '../stores/channels.js'
 
 const props = defineProps(['id'])
 const echoChannel = window.Echo.private('gildsmith.dashboard.channels')
@@ -58,11 +60,16 @@ onUnmounted(() => {
 
 <template>
     <template v-if="channel">
-        <ChannelEssentialsSection :channel="channel"/>
-        <ChannelLanguagesSections :channel="channel"/>
-        <ChannelCurrenciesSection :channel="channel"/>
-        <ChannelDefaultsSection :channel="channel"/>
-        <ChannelActionsSection :channel="channel"/>
+        <div class="channel-container">
+            <PageOutline tags="h2"/>
+            <div class="channel-wrapper">
+                <ChannelEssentialsSection :channel="channel"/>
+                <ChannelLanguagesSections :channel="channel"/>
+                <ChannelCurrenciesSection :channel="channel"/>
+                <ChannelDefaultsSection :channel="channel"/>
+                <ChannelActionsSection :channel="channel"/>
+            </div>
+        </div>
     </template>
     <template v-else>
         <!-- TODO -->
@@ -71,3 +78,14 @@ onUnmounted(() => {
     </template>
     <StatusHandler v-if="channelsStore.error" :error="channelsStore.error" :status="channelsStore.status" @refresh="refresh"/>
 </template>
+
+<style scoped>
+.channel-container {
+    @apply grid gap-4 items-start;
+    grid-template-columns: 240px 1fr;
+}
+
+.channel-wrapper {
+    @apply grid gap-12 p-4 bg-white shadow;
+}
+</style>

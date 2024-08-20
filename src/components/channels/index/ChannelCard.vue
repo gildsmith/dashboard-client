@@ -1,7 +1,8 @@
 <script setup>
-import {IconSettings2} from '@tabler/icons-vue'
-import MaintenanceBadge from './MaintenanceBadge.vue'
+import {IconCircleCheckFilled, IconFlagFilled, IconSettings2} from '@tabler/icons-vue'
 import {useI18n} from 'vue-i18n'
+
+import ChannelCardAvatar from './ChannelCardAvatar.vue'
 
 /*
  | ---------------------------------------------------------------------------
@@ -16,43 +17,64 @@ const {t} = useI18n()
 </script>
 
 <template>
-    <div class="list">
-        <div class="list-item">
-            <div class="channel-text-wrapper">
-                <div class="channel-name">
-                    <div class="channel-id">#{{ channel.id }}</div>
-                    <h2 class="subheader">{{ t(channel.name) }}</h2>
+    <div class="channel-card">
+        <div class="channel-details">
+            <div class="channel-header">
+                <ChannelCardAvatar :id="channel.id" :name="channel.name"/>
+                <div class="channel-identity">
+                    <div class="channel-name">{{ t(channel.name) }}</div>
+                    <div class="channel-id">{{ t('Channel ID:') }} {{ channel.id }}</div>
                 </div>
-                <div v-if="channel.description" class="channel-description footnote">{{ t(channel.description) }}</div>
             </div>
-            <RouterLink :to="{ name: 'dashboard.channels.show', params: { id: channel.id }}" class="channel-edit">
+            <div>
+                <IconCircleCheckFilled v-if="!channel.maintenance" class="channel-status--active" size="16" stroke="2"/>
+                <IconFlagFilled v-else class="channel-status--maintenance" size="16" stroke="2"/>
+            </div>
+        </div>
+        <div v-if="channel.description" class="channel-description">{{ t(channel.description) }}</div>
+        <div class="channel-actions">
+            <RouterLink :to="{ name: 'dashboard.channels.show', params: { id: channel.id }}" class="button">
                 <IconSettings2 size="16" stroke="2"/>
                 <span>{{ t('Edit') }}</span>
             </RouterLink>
         </div>
-        <MaintenanceBadge :channel="channel"/>
     </div>
 </template>
 
 <style scoped>
-.channel-text-wrapper {
-    @apply flex flex-col gap-2;
+.channel-card {
+    @apply bg-white rounded-md shadow;
 }
 
-.channel-edit {
-    @apply flex gap-2 items-center text-sm border py-2 px-4 rounded-full;
-    @apply hover:bg-slate-100;
+.channel-details {
+    @apply m-4 flex gap-4;
 }
 
-.channel-id {
-    @apply text-xs font-semibold text-slate-400;
+.channel-header {
+    @apply flex gap-3 items-center flex-1;
 }
 
 .channel-name {
-    @apply flex items-center gap-2;
+    @apply font-semibold text-lg truncate max-w-48;
+}
+
+.channel-id {
+    @apply text-xs text-slate-600;
 }
 
 .channel-description {
-    @apply max-w-96;
+    @apply text-sm m-4;
+}
+
+.channel-status--active {
+    @apply text-emerald-500;
+}
+
+.channel-status--maintenance {
+    @apply text-amber-500;
+}
+
+.channel-actions {
+    @apply p-4 flex border-t border-slate-100;
 }
 </style>

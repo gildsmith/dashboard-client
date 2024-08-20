@@ -1,7 +1,8 @@
-import ChannelsIndex from '../../pages/ChannelsIndex.vue'
-import DashboardIndex from '../../pages/DashboardIndex.vue'
 import {IconDashboard, IconWorld} from '@tabler/icons-vue'
+
+import ChannelsIndex from '../../pages/ChannelsIndex.vue'
 import ChannelsShow from '../../pages/ChannelsShow.vue'
+import DashboardIndex from '../../pages/DashboardIndex.vue'
 
 /*
  | ---------------------------------------------------------------------------

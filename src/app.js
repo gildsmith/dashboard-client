@@ -1,10 +1,12 @@
 import './bootstrap/axios.js'
 import './bootstrap/echo.js'
-import i18n from './bootstrap/i18n.js'
-import router from './bootstrap/router.js'
-import appComponent from './bootstrap/app.js'
+
 import {createPinia} from 'pinia'
 import {createApp} from 'vue'
+
+import appComponent from './bootstrap/app.js'
+import i18n from './bootstrap/i18n.js'
+import router from './bootstrap/router.js'
 import {useNotificationsStore} from './stores/notifications.js'
 
 window.axios.interceptors.request.use(config => {
@@ -14,7 +16,7 @@ window.axios.interceptors.request.use(config => {
     return config
 })
 
-window.axios.interceptors.response.use(r=>r, error => {
+window.axios.interceptors.response.use(r => r, error => {
     useNotificationsStore().append(error.message)
 })
 

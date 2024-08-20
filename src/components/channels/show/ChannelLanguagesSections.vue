@@ -1,11 +1,12 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
+import {IconTrash} from '@tabler/icons-vue'
+import {computed} from 'vue'
 import {useI18n} from 'vue-i18n'
+
 import {useUpdateChannelRelations} from '../../../composables/channels/updateChannelRelations.js'
 import {useChannelsStore} from '../../../stores/channels.js'
 import {useDatasetsStore} from '../../../stores/datasets.js'
-import {computed} from 'vue'
-import {IconTrash} from '@tabler/icons-vue'
 import SearchableDropdown from '../../inputs/SearchableDropdown.vue'
 
 const {t} = useI18n()
@@ -63,12 +64,14 @@ async function detach(languageId) {
 
 <template>
     <div class="channel-languages section">
-        <h1 class="header">{{ t('Languages') }}</h1>
+        <h2 class="subheader">{{ t('Languages') }}</h2>
         <span class="description">{{ t('This section allows you to manage the list of available languages for this channel.') }}</span>
         <div class="list">
             <div v-for="language in channel.languages" :key="language.id" class="list-item">
                 <span>{{ t('language.' + language.code) }}</span>
-                <IconTrash v-if="language.id !== channel.default_language.id" size="16" stroke="2" @click="detach(language.id)"/>
+                <div v-if="language.id !== channel.default_language.id" class="delete-language button" @click="detach(language.id)">
+                    <IconTrash size="16" stroke="2"/>
+                </div>
             </div>
         </div>
         <SearchableDropdown :options="remainingLanguagesDropdownOptions" @optionClicked="attach"/>
@@ -78,5 +81,9 @@ async function detach(languageId) {
 <style scoped>
 .channel-languages {
     @apply grid items-start;
+}
+
+.delete-language {
+    @apply p-2;
 }
 </style>

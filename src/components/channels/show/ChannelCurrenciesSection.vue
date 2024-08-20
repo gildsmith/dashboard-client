@@ -1,11 +1,12 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
+import {IconTrash} from '@tabler/icons-vue'
+import {computed} from 'vue'
 import {useI18n} from 'vue-i18n'
+
 import {useUpdateChannelRelations} from '../../../composables/channels/updateChannelRelations.js'
 import {useChannelsStore} from '../../../stores/channels.js'
 import {useDatasetsStore} from '../../../stores/datasets.js'
-import {computed} from 'vue'
-import {IconTrash} from '@tabler/icons-vue'
 import SearchableDropdown from '../../inputs/SearchableDropdown.vue'
 
 const {t} = useI18n()
@@ -66,7 +67,9 @@ async function detach(currencyId) {
         <div class="list">
             <div v-for="currency in channel.currencies" :key="currency.id" class="list-item">
                 <span>{{ t('currency.' + currency.code) }}</span>
-                <IconTrash v-if="currency.id !== channel.default_currency.id" size="16" stroke="2" @click="detach(currency.id)"/>
+                <div v-if="currency.id !== channel.default_currency.id" class="delete-currency button" @click="detach(currency.id)">
+                    <IconTrash size="16" stroke="2"/>
+                </div>
             </div>
         </div>
         <SearchableDropdown :options="remainingCurrenciesDropdownOptions" @optionClicked="attach"/>
@@ -76,5 +79,9 @@ async function detach(currencyId) {
 <style scoped>
 .channel-currencies {
     @apply grid items-start;
+}
+
+.delete-currency {
+    @apply p-2;
 }
 </style>

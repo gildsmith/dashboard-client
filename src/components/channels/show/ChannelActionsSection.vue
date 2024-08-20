@@ -1,8 +1,9 @@
 <script setup>
+import {useI18n} from 'vue-i18n'
+import {useRouter} from 'vue-router'
+
 import DeleteChannelButton from './actions/DeleteChannelButton.vue'
 import ToggleMaintenanceMode from './actions/ToggleMaintenanceModeButton.vue'
-import {useRouter} from 'vue-router'
-import {useI18n} from 'vue-i18n'
 
 defineProps(['channel'])
 
@@ -30,10 +31,10 @@ function redirectOnDelete() {
             <div class="list-item">
                 <div class="action-text-wrapper">
                     <div class="action-name">{{ t('Delete Channel') }}</div>
-                    <div class="action-description footnote" v-if="channel.id === 1">
+                    <div v-if="channel.id === 1" class="action-description footnote">
                         {{ t('This channel is default and cannot be deleted. If attempted, it will be immediately recreated with ID 1.') }}
                     </div>
-                    <div class="action-description footnote" v-else>
+                    <div v-else class="action-description footnote">
                         {{ t('Deleting this channel is a permanent action that will remove all associated data forever! And that\'s a very long time.') }}
                     </div>
                 </div>
