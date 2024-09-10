@@ -4,7 +4,9 @@ import {defineStore} from 'pinia'
  | ---------------------------------------------------------------------------
  | Datasets Store
  | ---------------------------------------------------------------------------
- | This store is responsible for fetching basic datasets from the API.
+ | Manages the retrieval of basic datasets such as currencies, languages,
+ | and features from the API. Each dataset is fetched only once to minimize
+ | redundant API calls.
  */
 
 export const useDatasetsStore = defineStore('datasets', {

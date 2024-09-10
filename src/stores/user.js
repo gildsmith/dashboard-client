@@ -6,7 +6,8 @@ import {defineStore} from 'pinia'
  | ---------------------------------------------------------------------------
  | User Store
  | ---------------------------------------------------------------------------
- | Manages the user state within the application.
+ | Fetches and manages the authenticated user's details. Once fetched,
+ | the user data is stored and can be invalidated when necessary.
  */
 
 export const useUserStore = defineStore('user', {

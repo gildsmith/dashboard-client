@@ -22,6 +22,6 @@ const {t} = useI18n()
 }
 
 .channelId {
-    @apply text-xs font-semibold text-slate-500;
+    @apply text-xs font-semibold text-flint-500;
 }
 </style>

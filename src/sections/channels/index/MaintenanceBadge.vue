@@ -8,13 +8,13 @@ const {t} = useI18n()
 
 <template>
     <div v-if="channel.maintenance" class="maintenance">
-        <IconFlag size="16" stroke="2"/>
+        <IconFlag size="16" stroke="1.75"/>
         <span>{{ t('This channel is currently in maintenance mode. It cannot be accessed by anyone but authenticated administrators.') }}</span>
     </div>
 </template>
 
 <style scoped>
 .maintenance {
-    @apply flex items-center gap-2 px-4 py-3 bg-slate-950 text-white text-sm;
+    @apply flex items-center gap-2 px-4 py-3 bg-flint-950 text-white text-sm;
 }
 </style>

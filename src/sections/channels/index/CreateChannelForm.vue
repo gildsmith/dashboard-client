@@ -28,7 +28,7 @@ async function submitForm() {
     <div class="form-container">
         <h2 class="subheader">{{ t('Create new channel') }}</h2>
         <div class="form-description footnote">
-            {{ t('Channel names do not have to be unique, but it is strongly recommended to help keep things organised.') }}
+            {{ t('Channel names don\'t have to be unique, but it helps keep things organised.') }}
         </div>
         <form class="form-wrapper" @submit.prevent="submitForm">
             <input v-model="input" :placeholder="t('Channel name')" class="input" required type="text">
@@ -39,7 +39,7 @@ async function submitForm() {
 
 <style scoped>
 .form-container {
-    @apply p-4 bg-white flex flex-col gap-2 shadow rounded col-span-2;
+    @apply p-4 bg-white flex flex-col gap-2 border rounded col-span-2;
 }
 
 .form-description {

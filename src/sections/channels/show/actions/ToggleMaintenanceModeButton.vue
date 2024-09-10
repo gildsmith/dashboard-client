@@ -35,11 +35,11 @@ async function clickDisableMaintenance(channelId) {
 
 <template>
     <div v-if="channel.maintenance" class="button" @click="clickDisableMaintenance(channel.id)">
-        <IconFlag size="16" stroke="2"/>
+        <IconFlag size="16" stroke="1.75"/>
         <span>{{ t('Disable maintenance') }}</span>
     </div>
     <div v-else class="button" @click="clickEnableMaintenance(channel.id)">
-        <IconFlag size="16" stroke="2"/>
+        <IconFlag size="16" stroke="1.75"/>
         <span>{{ t('Enable maintenance') }}</span>
     </div>
 </template>

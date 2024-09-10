@@ -27,14 +27,14 @@ const {t} = useI18n()
                 </div>
             </div>
             <div>
-                <IconCircleCheckFilled v-if="!channel.maintenance" class="channel-status--active" size="16" stroke="2"/>
-                <IconFlagFilled v-else class="channel-status--maintenance" size="16" stroke="2"/>
+                <IconCircleCheckFilled v-if="!channel.maintenance" class="channel-status--active" size="16" stroke="1.75"/>
+                <IconFlagFilled v-else class="channel-status--maintenance" size="16" stroke="1.75"/>
             </div>
         </div>
         <div v-if="channel.description" class="channel-description footnote">{{ t(channel.description) }}</div>
         <div class="channel-actions">
             <RouterLink :to="{ name: 'dashboard.channels.show', params: { id: channel.id }}" class="button">
-                <IconSettings2 size="16" stroke="2"/>
+                <IconSettings2 size="16" stroke="1.75"/>
                 <span>{{ t('Edit') }}</span>
             </RouterLink>
         </div>
@@ -43,7 +43,7 @@ const {t} = useI18n()
 
 <style scoped>
 .channel-card {
-    @apply bg-white rounded-md shadow;
+    @apply bg-white rounded-md border shadow-xs;
 }
 
 .channel-details {
@@ -59,7 +59,7 @@ const {t} = useI18n()
 }
 
 .channel-id {
-    @apply text-xs text-slate-600;
+    @apply text-xs text-flint-600;
 }
 
 .channel-description {
@@ -75,6 +75,6 @@ const {t} = useI18n()
 }
 
 .channel-actions {
-    @apply p-4 flex border-t border-slate-100;
+    @apply p-4 flex border-t border-flint-100;
 }
 </style>

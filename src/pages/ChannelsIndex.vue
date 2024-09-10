@@ -2,8 +2,8 @@
 import {onMounted, onUnmounted} from 'vue'
 import {useI18n} from 'vue-i18n'
 
-import ChannelCard from '../components/channels/index/ChannelCard.vue'
-import CreateChannelForm from '../components/channels/index/CreateChannelForm.vue'
+import ChannelCard from '../sections/channels/index/ChannelCard.vue'
+import CreateChannelForm from '../sections/channels/index/CreateChannelForm.vue'
 import {useChannelsStore} from '../stores/channels.js'
 
 const {t} = useI18n()

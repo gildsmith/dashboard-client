@@ -1,7 +1,7 @@
-import globals from 'globals'
 import pluginJs from '@eslint/js'
-import pluginVue from 'eslint-plugin-vue'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import pluginVue from 'eslint-plugin-vue'
+import globals from 'globals'
 
 // noinspection JSUnusedGlobalSymbols
 export default [
@@ -20,8 +20,8 @@ export default [
         rules: {
             'quotes': ['warn', 'single'],
             'semi': ['warn', 'never'],
-            'simple-import-sort/imports': 'error',
-            'simple-import-sort/exports': 'error',
+            'simple-import-sort/imports': 'warn',
+            'simple-import-sort/exports': 'warn',
         },
     },
 ]

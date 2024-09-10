@@ -1,18 +1,18 @@
 {
-  "name": "@gildsmith/dashboard-client",
+  "name": "@gildsmith/dashboard-web",
   "type": "module",
   "version": "1.0.0",
   "main": "src/app.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gildsmith/dashboard-client.git"
+    "url": "git+https://github.com/gildsmith/dashboard-web.git"
   },
   "author": "Mateusz Chmielewski",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gildsmith/dashboard-client/issues"
+    "url": "https://github.com/gildsmith/dashboard-web/issues"
   },
-  "homepage": "https://github.com/gildsmith/dashboard-client#readme",
+  "homepage": "https://github.com/gildsmith/dashboard-web#readme",
   "dependencies": {
     "@tabler/icons-vue": "^3.2.0",
     "@vueuse/core": "^10.9.0",

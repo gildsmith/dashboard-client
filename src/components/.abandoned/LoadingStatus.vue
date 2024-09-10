@@ -1,6 +1,8 @@
 <script setup>
 import {IconMoodPuzzled, IconRefresh} from '@tabler/icons-vue'
 
+/* TODO abandoned for now */
+
 defineProps(['status', 'error'])
 const emits = defineEmits(['refresh'])
 </script>
@@ -10,10 +12,10 @@ const emits = defineEmits(['refresh'])
         <div v-for="i in 4" :key="i" class="line"></div>
     </div>
     <div v-if="['error'].includes(status)" class="error-container">
-        <IconMoodPuzzled size="16" stroke="2"/>
+        <IconMoodPuzzled size="16" stroke="1.75"/>
         <span class="statusHandleFailureMessage">{{ error }}</span>
         <div class="statusHandleFailureRefresh" @click="emits('refresh')">
-            <IconRefresh size="16" stroke="2"/>
+            <IconRefresh size="16" stroke="1.75"/>
         </div>
     </div>
 </template>
@@ -24,7 +26,7 @@ const emits = defineEmits(['refresh'])
 }
 
 .line {
-    @apply h-2 bg-slate-300 rounded-full col-span-3;
+    @apply h-2 bg-flint-300 rounded-full col-span-3;
 }
 
 .line:first-of-type {
@@ -45,6 +47,6 @@ const emits = defineEmits(['refresh'])
 
 .statusHandleFailureRefresh {
     @apply p-3 bg-white rounded border cursor-pointer;
-    @apply hover:bg-slate-100;
+    @apply hover:bg-flint-100;
 }
 </style>

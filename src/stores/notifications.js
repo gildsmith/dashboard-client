@@ -4,7 +4,9 @@ import {defineStore} from 'pinia'
  | ---------------------------------------------------------------------------
  | Notifications Store
  | ---------------------------------------------------------------------------
- | Manages the lifecycle of notifications within the application.
+ | Manages notifications within the application, allowing messages to be
+ | appended and removed. Each notification is assigned a unique ID using
+ | the crypto API for easy tracking and deletion.
  */
 
 export const useNotificationsStore = defineStore('notifications', {

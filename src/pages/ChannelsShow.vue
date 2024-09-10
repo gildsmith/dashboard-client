@@ -1,13 +1,12 @@
 <script setup>
 import {computed, onMounted, onUnmounted} from 'vue'
 
-import ChannelActionsSection from '../components/channels/show/ChannelActionsSection.vue'
-import ChannelCurrenciesSection from '../components/channels/show/ChannelCurrenciesSection.vue'
-import ChannelDefaultsSection from '../components/channels/show/ChannelDefaultsSection.vue'
-import ChannelEssentialsSection from '../components/channels/show/ChannelEssentialsSection.vue'
-import ChannelLanguagesSections from '../components/channels/show/ChannelLanguagesSections.vue'
-import StatusHandler from '../components/dashboard/LoadingStatus.vue'
-import PageOutline from '../components/dashboard/PageOutline.vue'
+import StatusHandler from '../components/.abandoned/LoadingStatus.vue'
+import ChannelActionsSection from '../sections/channels/show/ChannelActionsSection.vue'
+import ChannelCurrenciesSection from '../sections/channels/show/ChannelCurrenciesSection.vue'
+import ChannelDefaultsSection from '../sections/channels/show/ChannelDefaultsSection.vue'
+import ChannelEssentialsSection from '../sections/channels/show/ChannelEssentialsSection.vue'
+import ChannelLanguagesSections from '../sections/channels/show/ChannelLanguagesSections.vue'
 import {useChannelsStore} from '../stores/channels.js'
 
 const props = defineProps(['id'])
@@ -60,8 +59,6 @@ onUnmounted(() => {
 
 <template>
     <template v-if="channel">
-        <div class="channel-container">
-            <PageOutline tags="h2"/>
             <div class="channel-wrapper">
                 <ChannelEssentialsSection :channel="channel"/>
                 <ChannelLanguagesSections :channel="channel"/>
@@ -69,7 +66,6 @@ onUnmounted(() => {
                 <ChannelDefaultsSection :channel="channel"/>
                 <ChannelActionsSection :channel="channel"/>
             </div>
-        </div>
     </template>
     <template v-else>
         <!-- TODO -->
@@ -80,12 +76,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.channel-container {
-    @apply grid gap-4 items-start;
-    grid-template-columns: 240px 1fr;
-}
-
 .channel-wrapper {
-    @apply grid gap-12 p-4 bg-white shadow;
+    @apply grid gap-12 p-4;
 }
 </style>

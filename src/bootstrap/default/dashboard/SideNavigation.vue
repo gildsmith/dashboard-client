@@ -3,6 +3,14 @@ import {computed} from 'vue'
 import {useI18n} from 'vue-i18n'
 import {useRouter} from 'vue-router'
 
+/* ---------------------------------------------------------------------------
+ | Side Navigation
+ | ---------------------------------------------------------------------------
+ | The navigation links are dynamically generated from the router's
+ | available routes. Only routes with a name and a length greater than 1
+ | are displayed, and they are ordered based on their meta 'order' value.
+ */
+
 const {t} = useI18n()
 const children = useRouter().getRoutes() || []
 const navChildren = computed(() => children
@@ -13,9 +21,9 @@ const navChildren = computed(() => children
 <template>
     <div class="nav-container">
         <RouterLink v-for="(navItem, key) in navChildren" :key="key" :to="{name: navItem.name}" class="nav-link">
-            <component :is="navItem.meta.icon" v-if="navItem.meta.icon" size="24" stroke="2"/>
+            <component :is="navItem.meta.icon" v-if="navItem.meta.icon" size="24" stroke="1.75" class="nav-icon"/>
             <div class="nav-text">
-                <span>{{ t(navItem.meta.name) }}</span>
+                <span class="nav-name">{{ t(navItem.meta.name) }}</span>
                 <span v-if="navItem.meta.description" class="nav-description">{{ t(navItem.meta.description) }}</span>
             </div>
         </RouterLink>
@@ -29,22 +37,30 @@ const navChildren = computed(() => children
 
 .nav-link {
     @apply flex gap-4 p-4 items-center;
-    @apply hover:bg-slate-50;
+    @apply hover:bg-flint-50;
+}
+
+.nav-icon {
+    @apply text-flint-500;
 }
 
 .nav-text {
     @apply flex flex-col;
 }
 
-.nav-description {
-    @apply text-sm text-slate-500;
+.nav-name {
+    @apply font-semibold text-flint-700;
 }
 
-.dashboard--left-panel-folded .nav-link {
+.nav-description {
+    @apply text-sm text-flint-500;
+}
+
+.dashboard--navigation-folded .nav-link {
     @apply flex-col;
 }
 
-.dashboard--left-panel-folded .nav-text {
+.dashboard--navigation-folded .nav-text {
     @apply hidden;
 }
 </style>

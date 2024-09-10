@@ -1,8 +1,14 @@
 import {defineStore} from 'pinia'
 
 /**
- * TODO
+ | ---------------------------------------------------------------------------
+ | Channels Store
+ | ---------------------------------------------------------------------------
+ | Manages the state for a collection of channels, including fetching,
+ | updating (upserting), deleting channels, and handling their specific
+ | relationships. Channels are kept sorted by their ID.
  */
+
 export const useChannelsStore = defineStore('channels', {
     state: () => ({
         status: 'idle',

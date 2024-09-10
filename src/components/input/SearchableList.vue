@@ -82,6 +82,6 @@ function isChecked(value) {
 }
 
 .option {
-    @apply hover:bg-slate-100 p-2 flex items-center gap-2 cursor-pointer;
+    @apply hover:bg-flint-100 p-2 flex items-center gap-2 cursor-pointer;
 }
 </style>

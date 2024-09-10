@@ -10,6 +10,8 @@ import {useI18n} from 'vue-i18n'
  | language based on the user's browser settings or stored preference, and
  | updates the locale and stored preference when the user selects a different
  | language.
+ |
+ | TODO abandoned for now.
  */
 
 const {locale, messages, t} = useI18n()

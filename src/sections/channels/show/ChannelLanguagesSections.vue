@@ -4,10 +4,10 @@ import {IconTrash} from '@tabler/icons-vue'
 import {computed} from 'vue'
 import {useI18n} from 'vue-i18n'
 
+import SearchableDropdown from '../../../components/input/SearchableDropdown.vue'
 import {useUpdateChannelRelations} from '../../../composables/channels/updateChannelRelations.js'
 import {useChannelsStore} from '../../../stores/channels.js'
 import {useDatasetsStore} from '../../../stores/datasets.js'
-import SearchableDropdown from '../../inputs/SearchableDropdown.vue'
 
 const {t} = useI18n()
 const props = defineProps(['channel'])
@@ -69,7 +69,7 @@ async function detach(languageId) {
             <div v-for="language in channel.languages" :key="language.id" class="list-item">
                 <span>{{ t('language.' + language.code) }}</span>
                 <div v-if="language.id !== channel.default_language.id" class="delete-language button" @click="detach(language.id)">
-                    <IconTrash size="16" stroke="2"/>
+                    <IconTrash size="16" stroke="1.75"/>
                 </div>
             </div>
         </div>

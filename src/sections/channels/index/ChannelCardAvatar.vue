@@ -35,7 +35,7 @@ const nameExcerpt = computed(() => {
 
 <style scoped>
 .channel-avatar {
-    @apply bg-slate-950 h-9 w-9 rounded-full flex items-center justify-center;
+    @apply bg-flint-950 h-9 w-9 rounded-full flex items-center justify-center;
 }
 
 .channel-name-excerpt {

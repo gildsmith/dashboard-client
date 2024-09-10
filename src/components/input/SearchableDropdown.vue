@@ -71,8 +71,8 @@ onUnmounted(() => document.removeEventListener('click', closeDropdown))
             <input v-model="search" :placeholder="activeSelection" class="search-input" type="text" @keyup="openDropdown" @keyup.enter="submitOption">
             <input v-model="model" type="hidden"/>
             <div class="icon">
-                <IconChevronDown v-if="!active" size="16" stroke="2"/>
-                <IconChevronUp v-if="active" size="16" stroke="2"/>
+                <IconChevronDown v-if="!active" size="16" stroke="1.75"/>
+                <IconChevronUp v-if="active" size="16" stroke="1.75"/>
             </div>
         </div>
         <div class="options-container">
@@ -106,6 +106,6 @@ onUnmounted(() => document.removeEventListener('click', closeDropdown))
 }
 
 .option {
-    @apply hover:bg-slate-100 p-2 cursor-pointer;
+    @apply hover:bg-flint-100 p-2 cursor-pointer;
 }
 </style>

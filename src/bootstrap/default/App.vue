@@ -1,15 +1,14 @@
 <!--suppress CssUnusedSymbol -->
 
 <script setup>
-import {IconChevronLeft, IconChevronRight} from '@tabler/icons-vue'
-import {computed, ref} from 'vue'
-import {useI18n} from 'vue-i18n'
+import {computed} from 'vue'
 
-import ActionCenter from '../../components/dashboard/ActionCenterPanel.vue'
-import DashboardPersonalization from '../../components/dashboard/DashboardPersonalization.vue'
-import NaviagationPanel from '../../components/dashboard/NaviagationPanel.vue'
-import GildsmithLogo from '../../components/gildsmith/GildsmithLogo.vue'
-import GildsmithLogomark from '../../components/gildsmith/GildsmithLogomark.vue'
+import GildsmithLogomark from '../../components/brand/GildsmithLogomark.vue'
+import {useThemeStore} from '../../stores/theme.js'
+import ActionsList from './dashboard/ActionsList.vue'
+import NavigationHeader from './dashboard/NavigationHeader.vue'
+import PreviewBox from './dashboard/PreviewBox.vue'
+import SideNavigation from './dashboard/SideNavigation.vue'
 
 /*
  | ---------------------------------------------------------------------------
@@ -19,120 +18,82 @@ import GildsmithLogomark from '../../components/gildsmith/GildsmithLogomark.vue'
  | automatically unless a custom one exists at @/gildsmith/dashboard/App.vue.
  */
 
-const {t} = useI18n()
-
-/*
- | ---------------------------------------------------------------------------
- | Foldable Panels
- | ---------------------------------------------------------------------------
- | These states and functions manage the folding (collapsing) of the left
- | and right panels. The state is persisted in localStorage to maintain
- | the user's preference.
- */
-
-const isLeftPanelFolded = ref(localStorage.getItem('theme-left-panel-folded') === 'true')
-const isRightPanelFolded = ref(localStorage.getItem('theme-right-panel-folded') === 'true')
-
-function foldLeftPanel() {
-    isLeftPanelFolded.value = !isLeftPanelFolded.value
-    localStorage.setItem('theme-left-panel-folded', isLeftPanelFolded.value.toString())
-}
-
-function foldRightPanel() {
-    isRightPanelFolded.value = !isRightPanelFolded.value
-    localStorage.setItem('theme-right-panel-folded', isRightPanelFolded.value.toString())
-}
+const themeStore = useThemeStore()
 
 const dashboardClasses = computed(() => ({
     'dashboard': true,
-    'dashboard--left-panel-folded': isLeftPanelFolded.value,
-    'dashboard--right-panel-folded': isRightPanelFolded.value,
+    'dashboard--navigation-folded': themeStore.isNavigationFolded,
+    'dashboard--dynamic-view-active': true,
 }))
 </script>
 
 <template>
     <div :class="dashboardClasses">
-        <div class="dashboard-panel dashboard-panel--left">
-            <div class="dashboard-panel-header">
-                <GildsmithLogo class="logo"/>
-                <div class="fold-panel-button" @click="foldLeftPanel">
-                    <IconChevronRight v-if="isLeftPanelFolded" size="24" stroke="2"/>
-                    <IconChevronLeft v-else size="24" stroke="2"/>
-                </div>
-            </div>
-            <GildsmithLogomark class="logomark"/>
-            <NaviagationPanel/>
-            <DashboardPersonalization/>
+        <div class="dashboard-navigation">
+            <NavigationHeader/>
+            <GildsmithLogomark v-if="themeStore.isNavigationFolded" class="navigation-logomark"/>
+            <SideNavigation/>
+            <PreviewBox/>
         </div>
-        <div class="router-view">
+        <div class="dashboard-router-view">
             <RouterView/>
         </div>
-        <div class="dashboard-panel dashboard-panel--right">
-            <div class="dashboard-panel-header">
-                <div class="fold-panel-button" @click="foldRightPanel">
-                    <IconChevronLeft v-if="isRightPanelFolded" size="24" stroke="2"/>
-                    <IconChevronRight v-else size="24" stroke="2"/>
-                </div>
-                <div class="action-center-title">{{ t('Action Center') }}</div>
-            </div>
-            <ActionCenter/>
+        <div class="dashboard-dynamic-view">
+            <div style="padding: 16px">Dynamic View!!</div>
+        </div>
+        <div class="dashboard-actions-list">
+            <ActionsList/>
         </div>
     </div>
 </template>
 
 <style>
-body {
-    @apply bg-slate-50 antialiased;
-}
-
 /*
- * Following styles describe the sizes of all
- * grid columns, as well as styles to some core
- * elements present on side panels.
+ * Following styles describe the sizes of all grid columns,
+ * as well as styles to some core elements present on side panels.
  */
+:root {
+    --navigation-width: 20em;
+    --router-view-width: auto;
+    --dynamic-view-width: 20em;
+    --actions-list-width: 5em;
+}
+
 .dashboard {
-    @apply grid mx-auto gap-16 min-h-full text-slate-800;
-    grid-template-columns: 20em auto 20em;
+    @apply grid mx-auto min-h-full text-flint-800 bg-flint-25 antialiased;
+    grid-template-columns: var(--navigation-width) var(--router-view-width) var(--dynamic-view-width) var(--actions-list-width);
 }
 
-.dashboard.dashboard--left-panel-folded {
-    grid-template-columns: 5em auto 20em;
+.dashboard.dashboard--navigation-folded {
+    --navigation-width: 5em;
 }
 
-.dashboard.dashboard--right-panel-folded {
-    grid-template-columns: 20em auto 5em;
+.dashboard-navigation {
+    @apply overflow-y-auto overflow-x-hidden sticky border-r border-flint-200 h-full max-h-dvh bg-white top-0 flex flex-col;
 }
 
-.dashboard.dashboard--left-panel-folded.dashboard--right-panel-folded {
-    grid-template-columns: 5em auto 5em;
+.dashboard-router-view {
+    @apply grid items-start self-start gap-16 p-16;
 }
 
-.router-view {
-    @apply grid items-start self-start gap-16 py-8;
+.dashboard-dynamic-view {
+    @apply overflow-y-auto overflow-x-hidden sticky border-l border-flint-200 h-full max-h-dvh bg-white top-0;
 }
 
-.dashboard-panel {
-    @apply overflow-y-auto overflow-x-hidden sticky border-x h-full max-h-dvh bg-white top-0;
+.dashboard-actions-list {
+    @apply overflow-y-auto overflow-x-hidden sticky border-l border-flint-200 h-full max-h-dvh bg-white top-0;
 }
 
-.dashboard-panel-header {
-    @apply flex items-center justify-between p-4 border-b border-slate-100 sticky top-0 bg-white;
+.dashboard:not(.dashboard--dynamic-view-active) .dashboard-router-view {
+    @apply col-span-2;
 }
 
-.fold-panel-button {
-    @apply p-2 border cursor-pointer rounded-full;
-}
-
-.dashboard--left-panel-folded .logo {
+.dashboard:not(.dashboard--dynamic-view-active) .dashboard-dynamic-view {
     @apply hidden;
 }
 
-.logomark {
-    @apply mx-auto my-4 hidden;
-}
-
-.dashboard--left-panel-folded .logomark {
-    @apply block;
+.navigation-logomark {
+    @apply mx-auto my-4;
 }
 
 .dashboard--right-panel-folded .action-center-title {
@@ -140,31 +101,26 @@ body {
 }
 
 /*
- * This section contains rules related to
- * scrollbar styling.
+ * This section is responsible for styling scrollbars, globally.
  */
 ::-webkit-scrollbar {
-    height: 1rem;
-    width: .5rem
+    @apply h-4 w-2;
 }
 
 ::-webkit-scrollbar:horizontal {
-    height: .5rem;
-    width: 1rem
+    @apply w-4 h-2;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: transparent;
+    @apply bg-transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    @apply bg-slate-200;
-    border-color: #ffffff;
-    border-width: 1px
+    @apply bg-flint-200 border border-white;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    @apply bg-slate-300;
+    @apply bg-flint-300;
 }
 
 /*
@@ -173,12 +129,14 @@ body {
  * to keep the style of the dashboard uniform.
  */
 .input {
-    @apply border border-slate-200 py-2 px-3 rounded-none;
+    @apply border border-flint-300 py-1.5 px-3.5 rounded-md shadow-xs;
+    @apply hover:border-flint-950;
 }
 
 .button {
-    @apply flex items-center gap-2 bg-white py-2 px-4 border cursor-pointer rounded-full text-sm;
-    @apply hover:border-slate-950 transition;
+    @apply flex items-center gap-2 bg-white py-1.5 px-3.5 border border-flint-300 cursor-pointer
+    rounded-md text-sm shadow-skeumorphism shadow-sm font-semibold text-flint-700;
+    @apply hover:border-flint-500 transition;
 }
 
 .header {
@@ -186,15 +144,15 @@ body {
 }
 
 .subheader {
-    @apply text-xl font-medium;
+    @apply text-xl font-medium text-flint-800;
 }
 
 .description {
-    @apply text-slate-500 block;
+    @apply text-flint-500 block;
 }
 
 .footnote {
-    @apply text-slate-500 text-sm;
+    @apply text-flint-500 text-sm;
 }
 
 .error {
@@ -219,9 +177,9 @@ body {
 
 /*
  * This simple fix stops Tabler Icons
- * from being squashed by flex content
+ * from being squashed by flex content.
  */
 .tabler-icon {
-    @apply shrink-0;
+    @apply shrink-0 text-flint-700;
 }
 </style>
