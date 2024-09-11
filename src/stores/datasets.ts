@@ -1,6 +1,5 @@
-import {defineStore} from 'pinia'
-
 import axios from 'axios'
+import {defineStore} from 'pinia'
 
 /*
  | ---------------------------------------------------------------------------
@@ -18,7 +17,7 @@ interface DatasetState {
     features: any[]
 }
 
-export const useDatasetsStore = defineStore('datasets', {
+export const useDatasetsStore = defineStore("datasets", {
     state: (): DatasetState => ({
         fetched: [],
         currencies: [],
