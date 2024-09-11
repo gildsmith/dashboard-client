@@ -2,7 +2,7 @@
 
 import {createRouter, createWebHistory} from 'vue-router'
 
-import {useUserStore} from '../stores/user.js'
+import {useUserStore} from '../stores/user.ts'
 import defaultRouter from './default/router.js'
 
 /*

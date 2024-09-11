@@ -2,7 +2,7 @@
 import {IconChevronLeft, IconChevronRight} from '@tabler/icons-vue'
 
 import GildsmithLogo from '../../../components/brand/GildsmithLogo.vue'
-import {useThemeStore} from '../../../stores/theme.js'
+import {useThemeStore} from '../../../stores/theme.ts'
 
 /* ---------------------------------------------------------------------------
  | Navigation Header

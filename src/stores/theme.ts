@@ -7,8 +7,12 @@ import {defineStore} from 'pinia'
  | Manages theme settings, storing all personalization in localStorage
  */
 
+interface ThemeState {
+    isNavigationFolded: boolean
+}
+
 export const useThemeStore = defineStore('theme', {
-    state: () => ({
+    state: (): ThemeState => ({
         isNavigationFolded: localStorage.getItem('theme-left-panel-folded') === 'true',
     }),
 
@@ -16,6 +20,6 @@ export const useThemeStore = defineStore('theme', {
         foldNavigation() {
             this.isNavigationFolded = !this.isNavigationFolded
             localStorage.setItem('theme-left-panel-folded', this.isNavigationFolded.toString())
-        }
-    }
+        },
+    },
 })

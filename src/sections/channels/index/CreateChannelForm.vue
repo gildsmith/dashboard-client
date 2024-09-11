@@ -3,7 +3,7 @@ import {ref} from 'vue'
 import {useI18n} from 'vue-i18n'
 
 import {useCreateChannel} from '../../../composables/channels/createChannel.js'
-import {useChannelsStore} from '../../../stores/channels.js'
+import {useChannelsStore} from '../../../stores/channels.ts'
 
 /*
  | ---------------------------------------------------------------------------

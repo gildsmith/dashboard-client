@@ -4,7 +4,7 @@ import {useI18n} from 'vue-i18n'
 
 import ChannelCard from '../sections/channels/index/ChannelCard.vue'
 import CreateChannelForm from '../sections/channels/index/CreateChannelForm.vue'
-import {useChannelsStore} from '../stores/channels.js'
+import {useChannelsStore} from '../stores/channels.ts'
 
 const {t} = useI18n()
 const echoChannel = window.Echo.private('gildsmith.dashboard.channels')

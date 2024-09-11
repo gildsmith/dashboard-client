@@ -3,7 +3,7 @@ import {IconFlag} from '@tabler/icons-vue'
 import {useI18n} from 'vue-i18n'
 
 import {useUpdateChannel} from '../../../../composables/channels/updateChannel.js'
-import {useChannelsStore} from '../../../../stores/channels.js'
+import {useChannelsStore} from '../../../../stores/channels.ts'
 
 /*
  | ---------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 
 /*
  | ---------------------------------------------------------------------------
@@ -9,19 +9,28 @@ import {defineStore} from 'pinia'
  | the crypto API for easy tracking and deletion.
  */
 
+interface Notification {
+    id: string
+    message: string
+}
+
+interface NotificationsState {
+    notifications: Notification[]
+}
+
 export const useNotificationsStore = defineStore('notifications', {
-    state: () => ({
+    state: (): NotificationsState => ({
         notifications: [],
     }),
     actions: {
-        append(message) {
+        append(message: string) {
             this.notifications.push({
                 id: self.crypto.randomUUID(),
                 message: message,
             })
         },
-        remove(id) {
-            this.notifications = this.notifications.filter(n => n.id !== id)
+        remove(id: string) {
+            this.notifications = this.notifications.filter((n: Notification) => n.id !== id)
         },
     },
 })

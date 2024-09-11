@@ -7,7 +7,7 @@ import {createApp} from 'vue'
 import appComponent from './bootstrap/app.js'
 import i18n from './bootstrap/i18n.js'
 import router from './bootstrap/router.js'
-import {useNotificationsStore} from './stores/notifications.js'
+import {useNotificationsStore} from './stores/notifications.ts'
 
 window.axios.interceptors.request.use(config => {
     const lang = i18n.global.locale.value

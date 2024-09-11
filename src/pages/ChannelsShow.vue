@@ -7,7 +7,7 @@ import ChannelCurrenciesSection from '../sections/channels/show/ChannelCurrencie
 import ChannelDefaultsSection from '../sections/channels/show/ChannelDefaultsSection.vue'
 import ChannelEssentialsSection from '../sections/channels/show/ChannelEssentialsSection.vue'
 import ChannelLanguagesSections from '../sections/channels/show/ChannelLanguagesSections.vue'
-import {useChannelsStore} from '../stores/channels.js'
+import {useChannelsStore} from '../stores/channels.ts'
 
 const props = defineProps(['id'])
 const echoChannel = window.Echo.private('gildsmith.dashboard.channels')

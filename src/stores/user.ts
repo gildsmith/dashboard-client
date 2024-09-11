@@ -1,5 +1,4 @@
-// noinspection JSUnresolvedReference
-
+import axios from 'axios'
 import {defineStore} from 'pinia'
 
 /*
@@ -10,21 +9,32 @@ import {defineStore} from 'pinia'
  | the user data is stored and can be invalidated when necessary.
  */
 
+interface User {
+    id: number | null
+
+    [key: string]: any
+}
+
+interface UserState {
+    fetched: boolean
+    user: User
+}
+
 export const useUserStore = defineStore('user', {
-    state: () => ({
+    state: (): UserState => ({
         fetched: false,
         user: {id: null},
     }),
     actions: {
         async fetch() {
-            if (this.fetched)
-                return
+            if (this.fetched) return
 
-            await axios.get('/api/authentication/user').then(response => {
+            try {
+                const response = await axios.get<User>('/api/authentication/user')
                 this.user = response.data
                 this.fetched = true
-            }).catch(() => {
-            })
+            } catch (error) {
+            }
         },
         invalidate() {
             this.fetched = false
@@ -32,8 +42,8 @@ export const useUserStore = defineStore('user', {
         },
     },
     getters: {
-        authenticated() {
-            return !!this.user.id
+        authenticated(state: UserState): boolean {
+            return !!state.user.id
         },
     },
 })

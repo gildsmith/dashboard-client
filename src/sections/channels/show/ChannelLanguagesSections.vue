@@ -6,8 +6,8 @@ import {useI18n} from 'vue-i18n'
 
 import SearchableDropdown from '../../../components/input/SearchableDropdown.vue'
 import {useUpdateChannelRelations} from '../../../composables/channels/updateChannelRelations.js'
-import {useChannelsStore} from '../../../stores/channels.js'
-import {useDatasetsStore} from '../../../stores/datasets.js'
+import {useChannelsStore} from '../../../stores/channels.ts'
+import {useDatasetsStore} from '../../../stores/datasets.ts'
 
 const {t} = useI18n()
 const props = defineProps(['channel'])

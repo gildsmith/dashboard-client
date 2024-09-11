@@ -1,4 +1,5 @@
 import {defineStore} from 'pinia'
+import axios from 'axios'
 
 /*
  | ---------------------------------------------------------------------------
@@ -9,8 +10,15 @@ import {defineStore} from 'pinia'
  | redundant API calls.
  */
 
+interface DatasetState {
+    fetched: string[]
+    currencies: any[]
+    languages: any[]
+    features: any[]
+}
+
 export const useDatasetsStore = defineStore('datasets', {
-    state: () => ({
+    state: (): DatasetState => ({
         fetched: [],
         currencies: [],
         languages: [],
@@ -18,8 +26,7 @@ export const useDatasetsStore = defineStore('datasets', {
     }),
     actions: {
         async fetchCurrencies() {
-            if (this.fetched.includes('currencies'))
-                return
+            if (this.fetched.includes('currencies')) return
 
             const response = await axios.get('/_gildsmith/currencies')
             this.currencies = response.data
@@ -27,8 +34,7 @@ export const useDatasetsStore = defineStore('datasets', {
         },
 
         async fetchLanguages() {
-            if (this.fetched.includes('languages'))
-                return
+            if (this.fetched.includes('languages')) return
 
             const response = await axios.get('/_gildsmith/languages')
             this.languages = response.data
@@ -36,8 +42,7 @@ export const useDatasetsStore = defineStore('datasets', {
         },
 
         async fetchFeatures() {
-            if (this.fetched.includes('features'))
-                return
+            if (this.fetched.includes('features')) return
 
             const response = await axios.get('/_gildsmith/features')
             this.features = response.data

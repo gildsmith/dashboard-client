@@ -4,7 +4,7 @@ import {useI18n} from 'vue-i18n'
 
 import SearchableDropdown from '../../../components/input/SearchableDropdown.vue'
 import {useUpdateChannel} from '../../../composables/channels/updateChannel.js'
-import {useChannelsStore} from '../../../stores/channels.js'
+import {useChannelsStore} from '../../../stores/channels.ts'
 
 const {t} = useI18n()
 const {submit} = useUpdateChannel()

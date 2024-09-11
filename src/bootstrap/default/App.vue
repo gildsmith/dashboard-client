@@ -4,7 +4,7 @@
 import {computed} from 'vue'
 
 import GildsmithLogomark from '../../components/brand/GildsmithLogomark.vue'
-import {useThemeStore} from '../../stores/theme.js'
+import {useThemeStore} from '../../stores/theme.ts'
 import ActionsList from './dashboard/ActionsList.vue'
 import NavigationHeader from './dashboard/NavigationHeader.vue'
 import PreviewBox from './dashboard/PreviewBox.vue'
