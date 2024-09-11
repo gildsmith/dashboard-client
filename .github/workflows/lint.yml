@@ -20,3 +20,8 @@ jobs:
 
       - name: Run ESLint
         run: npx eslint src/ --fix
+
+      - name: Commit linted files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Fixes coding style"
