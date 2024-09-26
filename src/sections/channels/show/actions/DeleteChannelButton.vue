@@ -56,6 +56,10 @@ async function deleteChannel() {
     @apply border-red-600 text-red-600;
 }
 
+.delete-prompt svg {
+    @apply text-red-600;
+}
+
 .delete-button {
     @apply bg-red-600 text-white;
 }

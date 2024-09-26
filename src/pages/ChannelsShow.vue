@@ -1,7 +1,6 @@
 <script setup>
 import {computed, onMounted, onUnmounted} from 'vue'
 
-import StatusHandler from '../components/.abandoned/LoadingStatus.vue'
 import ChannelActionsSection from '../sections/channels/show/ChannelActionsSection.vue'
 import ChannelCurrenciesSection from '../sections/channels/show/ChannelCurrenciesSection.vue'
 import ChannelDefaultsSection from '../sections/channels/show/ChannelDefaultsSection.vue'
@@ -14,7 +13,7 @@ const echoChannel = window.Echo.private('gildsmith.dashboard.channels')
 const channelsStore = useChannelsStore()
 channelsStore.fetch()
 
-const channel = computed(() => channelsStore.find(props.id))
+const channel = computed(() => channelsStore.find(Number.parseInt(props.id)))
 
 function refresh() {
     channelsStore.fetch()
@@ -72,7 +71,6 @@ onUnmounted(() => {
         There's nothing in here.
         If this screen just appearead out of the blue, chances are that the channel was removed.
     </template>
-    <StatusHandler v-if="channelsStore.error" :error="channelsStore.error" :status="channelsStore.status" @refresh="refresh"/>
 </template>
 
 <style scoped>
