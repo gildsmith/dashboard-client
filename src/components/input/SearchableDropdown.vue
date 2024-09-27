@@ -169,7 +169,7 @@ onUnmounted(() => document.removeEventListener('click', closeDropdown))
 }
 
 .options-container {
-    @apply absolute invisible bg-white border-x border-b left-0 right-0 max-h-64 overflow-y-scroll z-10 shadow-flat;
+    @apply absolute invisible bg-white border-x border-b left-0 right-0 max-h-64 overflow-y-scroll z-10 shadow-xs;
 }
 
 .active .options-container {
