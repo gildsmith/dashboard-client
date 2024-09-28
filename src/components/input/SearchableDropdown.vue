@@ -6,7 +6,9 @@ import {computed, onMounted, onUnmounted, ref, watch} from 'vue'
  * References to manage dropdown state,
  * highlighted option, and search input.
  */
-const dropdownContainer = ref<HTMLElement | null>null
+
+/** @type {Ref<HTMLElement | null>} */
+const dropdownContainer = ref(null)
 const highlightedIndex = ref(0)
 const active = ref(false)
 const search = ref('')
@@ -133,7 +135,7 @@ onUnmounted(() => document.removeEventListener('click', closeDropdown))
 </script>
 
 <template>
-    <div ref="dropdownContainer" :class="{'dropdownContainer': true,'active': active}">
+    <div ref="dropdownContainer" :class="{ 'active': active }" class="dropdownContainer">
         <div class="input-wrapper input" @click="openDropdown">
             <input v-model="search" :placeholder="placeholder" class="search-input" type="text"
                    @keyup="openDropdown" @keyup.enter="enterInput" @keyup.up="highlightUp" @keyup.down="highlightDown">
