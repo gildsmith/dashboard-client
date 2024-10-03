@@ -1,5 +1,8 @@
 <script setup>
-import {IconBell, IconInfoCircle, IconMail, IconNews} from '@tabler/icons-vue'
+import {IconInfoCircle} from '@tabler/icons-vue'
+
+import PreviewSidebar from '../../../sidebars/PreviewSidebar.vue'
+import {useSidebarStore} from '../../../stores/sidebar.ts'
 
 /* ---------------------------------------------------------------------------
  | Actions List
@@ -11,21 +14,19 @@ import {IconBell, IconInfoCircle, IconMail, IconNews} from '@tabler/icons-vue'
  |
  | TODO
  */
+
+const sidebarStore = useSidebarStore()
+
+const first = {
+    title: 'Preview',
+    component: PreviewSidebar,
+}
 </script>
 
 <template>
     <div class="actions-list">
-        <div class="action">
+        <div class="action" @click="sidebarStore.setActiveItem(first)">
             <IconInfoCircle size="24" stroke="1.75"/>
-        </div>
-        <div class="action">
-            <IconNews size="24" stroke="1.75"/>
-        </div>
-        <div class="action">
-            <IconBell size="24" stroke="1.75"/>
-        </div>
-        <div class="action">
-            <IconMail size="24" stroke="1.75"/>
         </div>
     </div>
 </template>

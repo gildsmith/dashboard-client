@@ -4,11 +4,13 @@
 import {computed} from 'vue'
 
 import GildsmithLogomark from '../../components/brand/GildsmithLogomark.vue'
+import {useSidebarStore} from '../../stores/sidebar.ts'
 import {useThemeStore} from '../../stores/theme.ts'
 import ActionsList from './dashboard/ActionsList.vue'
 import NavigationHeader from './dashboard/NavigationHeader.vue'
+import NavigationList from './dashboard/NavigationList.vue'
 import PreviewBox from './dashboard/PreviewBox.vue'
-import SideNavigation from './dashboard/SideNavigation.vue'
+import SidebarHeader from './dashboard/SidebarHeader.vue'
 
 /*
  | ---------------------------------------------------------------------------
@@ -19,11 +21,12 @@ import SideNavigation from './dashboard/SideNavigation.vue'
  */
 
 const themeStore = useThemeStore()
+const sidebarStore = useSidebarStore()
 
 const dashboardClasses = computed(() => ({
     'dashboard': true,
     'dashboard--navigation-folded': themeStore.isNavigationFolded,
-    'dashboard--dynamic-view-active': true,
+    'dashboard--sidebar-active': sidebarStore.isOpen,
 }))
 </script>
 
@@ -32,14 +35,15 @@ const dashboardClasses = computed(() => ({
         <div class="dashboard-navigation">
             <NavigationHeader/>
             <GildsmithLogomark v-if="themeStore.isNavigationFolded" class="navigation-logomark"/>
-            <SideNavigation/>
+            <NavigationList/>
             <PreviewBox/>
         </div>
         <div class="dashboard-router-view">
             <RouterView/>
         </div>
-        <div class="dashboard-dynamic-view">
-            <div style="padding: 16px">Dynamic View!!</div>
+        <div class="dashboard-sidebar">
+            <SidebarHeader/>
+            <component :is="sidebarStore?.activeItem?.component"/>
         </div>
         <div class="dashboard-actions-list">
             <ActionsList/>
@@ -76,7 +80,7 @@ const dashboardClasses = computed(() => ({
     @apply grid items-start self-start gap-16 p-16;
 }
 
-.dashboard-dynamic-view {
+.dashboard-sidebar {
     @apply overflow-y-auto overflow-x-hidden sticky border-l border-flint-200 h-full max-h-dvh bg-white top-0;
 }
 
@@ -84,11 +88,11 @@ const dashboardClasses = computed(() => ({
     @apply overflow-y-auto overflow-x-hidden sticky border-l border-flint-200 h-full max-h-dvh bg-white top-0;
 }
 
-.dashboard:not(.dashboard--dynamic-view-active) .dashboard-router-view {
+.dashboard:not(.dashboard--sidebar-active) .dashboard-router-view {
     @apply col-span-2;
 }
 
-.dashboard:not(.dashboard--dynamic-view-active) .dashboard-dynamic-view {
+.dashboard:not(.dashboard--sidebar-active) .dashboard-sidebar {
     @apply hidden;
 }
 

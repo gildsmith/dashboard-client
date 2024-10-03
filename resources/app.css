@@ -4,8 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/*noinspection CssInvalidPropertyValue,CssNonIntegerLengthInPixels,CssUnknownProperty*/
 html {
     @apply h-full;
+
+    /*
+     * Enhances font rendering for better visual consistency with Figma
+     * designs by applying smoothing and subtle text-stroke effects.
+     */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-stroke: 0.1px;
+    text-stroke: 0.1px;
 }
 
 body {
