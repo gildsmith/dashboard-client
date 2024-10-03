@@ -39,7 +39,7 @@ async function submitForm() {
 
 <style scoped>
 .form-container {
-    @apply p-4 bg-white flex flex-col gap-2 border rounded col-span-2;
+    @apply p-4 bg-white flex flex-col gap-2 border rounded;
 }
 
 .form-description {

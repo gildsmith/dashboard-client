@@ -2,7 +2,8 @@
 import {onMounted, onUnmounted} from 'vue'
 import {useI18n} from 'vue-i18n'
 
-import ChannelCard from '../sections/channels/index/ChannelCard.vue'
+import DataTable from '../components/data/DataTable.vue'
+import Badge from '../components/ui/Badge.vue'
 import CreateChannelForm from '../sections/channels/index/CreateChannelForm.vue'
 import {useChannelsStore} from '../stores/channels.ts'
 
@@ -37,10 +38,27 @@ onUnmounted(() => {
     <div class="channels-index">
         <div class="pageHeader">
             <h1 class="pageTitle header">{{ t('Channels Management') }}</h1>
+            <button>Add channel</button>
         </div>
         <div class="channels-grid">
             <CreateChannelForm/>
-            <ChannelCard v-for="channel in channelsStore.channels" :key="channel.id" :channel="channel"/>
+            <DataTable :data="channelsStore.channels"
+                       :headers="['name', 'maintenance']"
+                       :selectable="true" :sortable="true" :pagination="5"
+                       title="Channels List">
+
+                <template #name="{ row }">
+                    <div class="channel-identity">
+                        <div class="channel-name">{{ row.name }}</div>
+                        <div class="channel-id">Channel ID: {{ row.id }}</div>
+                    </div>
+                </template>
+
+                <template #maintenance="{ row }">
+                    <Badge :text="!row.maintenance ? 'enabled' : 'disabled'"/>
+                </template>
+
+            </DataTable>
         </div>
     </div>
 </template>
@@ -51,6 +69,15 @@ onUnmounted(() => {
 }
 
 .channels-grid {
-    @apply grid gap-8 grid-cols-3;
+    @apply grid gap-8;
+}
+
+
+.channel-name {
+    @apply font-semibold text-lg;
+}
+
+.channel-id {
+    @apply text-xs text-flint-600;
 }
 </style>
