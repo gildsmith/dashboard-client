@@ -7,20 +7,20 @@ import DataTablePagination from './DataTablePagination.vue'
 import DataTableSortIcon from './DataTableSortIcon.vue'
 
 const props = defineProps({
-    title: {type: String, default: ''},
-    headers: {type: Array, required: true, default: () => []},
-    data: {type: Array, required: true, default: () => []},
-    sortable: {type: Object, default: () => ({})},
-    pagination: {type: Number, default: 0},
+    title: {default: ''},
+    headers: {required: true, default: () => []},
+    data: {required: true, default: () => []},
+    sortable: {default: () => ({})},
+    pagination: {default: 0},
     /* doneness point */
-    selectable: {type: Boolean, default: false},
-    actions: {type: Array, default: () => ({})},
+    selectable: {default: false},
+    actions: {default: () => ({})},
+    massActions: {default: false},
     reorder: {type: Function},
 })
 
-const {changeSortState, sortIcon, sortedData} = useSortable(toRef(props, 'data'))
-const { paginatedData, currentPage, totalPages, setPage, previousPage, nextPage, firstPage, lastPage } = usePagination(sortedData, toRef(props, 'pagination'))
-
+const {changeSortState, sortIcon, sortedData} = useSortable(toRef(props, 'data'), toRef(props, 'sortable'))
+const {paginatedData, currentPage, totalPages, previousPage, nextPage, firstPage, lastPage} = usePagination(sortedData, toRef(props, 'pagination'))
 </script>
 
 <template>
@@ -30,7 +30,9 @@ const { paginatedData, currentPage, totalPages, setPage, previousPage, nextPage,
         </div>
         <table class="table">
             <tr class="table-header-row">
-                <th v-for="header in headers" :key="header" class="table-header" @click="changeSortState(header)">
+                <th v-for="header in headers" :key="header" :class="{'table-header-clickable': sortIcon(header)}"
+                    class="table-header" @click="changeSortState(header)">
+
                     <div class="table-header-sorting-container">
                         <span>{{ header }}</span>
                         <DataTableSortIcon :type="sortIcon(header)"/>
@@ -46,14 +48,8 @@ const { paginatedData, currentPage, totalPages, setPage, previousPage, nextPage,
             </tr>
         </table>
     </div>
-    <DataTablePagination
-        :currentPage="currentPage"
-        :totalPages="totalPages"
-        @firstPage="firstPage"
-        @previousPage="previousPage"
-        @nextPage="nextPage"
-        @lastPage="lastPage"
-    />
+    <DataTablePagination v-if="pagination > 0" :currentPage="currentPage" :totalPages="totalPages"
+                         @firstPage="firstPage" @lastPage="lastPage" @nextPage="nextPage" @previousPage="previousPage"/>
 </template>
 
 <style scoped>
@@ -70,7 +66,11 @@ const { paginatedData, currentPage, totalPages, setPage, previousPage, nextPage,
 }
 
 .table-header {
-    @apply p-4 font-medium bg-flint-50 cursor-pointer;
+    @apply p-4 font-medium bg-flint-50;
+}
+
+.table-header.table-header-clickable {
+    @apply cursor-pointer;
 }
 
 .table-header-sorting-container {

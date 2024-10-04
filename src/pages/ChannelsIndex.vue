@@ -42,10 +42,7 @@ onUnmounted(() => {
         </div>
         <div class="channels-grid">
             <CreateChannelForm/>
-            <DataTable :data="channelsStore.channels"
-                       :headers="['name', 'maintenance']"
-                       :selectable="true" :sortable="true" :pagination="5"
-                       title="Channels List">
+            <DataTable :data="channelsStore.channels" :headers="['name', 'maintenance']" :selectable="true" :sortable="{ name: true }" title="Channels List">
 
                 <template #name="{ row }">
                     <div class="channel-identity">

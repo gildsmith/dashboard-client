@@ -1,6 +1,10 @@
 import {defineStore} from 'pinia'
+import type {Component} from 'vue'
 
-import {SidebarItem} from '../types/sidebar/sidebarItem'
+export interface SidebarItem {
+    component: Component;
+    title: string;
+}
 
 interface SidebarState {
     activeItem: SidebarItem | null

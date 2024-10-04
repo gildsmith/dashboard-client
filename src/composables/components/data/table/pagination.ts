@@ -1,18 +1,25 @@
+// noinspection JSUnusedGlobalSymbols
+
 import {computed, Ref, ref} from 'vue'
 
-export function usePagination(data: Ref<[]>, itemsPerPage: Ref<number>) {
+export function usePagination(data: Ref<[]>, pageSize: Ref<number>) {
     const currentPage = ref(1)
-    const pageSize = ref(itemsPerPage)
 
     const paginatedData = computed(() => {
-        if (pageSize.value === 0) return data
+        if (pageSize.value === 0) {
+            return data.value
+        }
+
         const start = (currentPage.value - 1) * pageSize.value
         const end = start + pageSize.value
+
         return data.value.slice(start, end)
     })
 
     const totalPages = computed(() => {
-        return Math.ceil(data.value.length / pageSize.value)
+        return pageSize.value !== 0
+            ? Math.ceil(data.value.length / pageSize.value)
+            : 1
     })
 
     function setPage(page: number) {

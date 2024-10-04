@@ -1,13 +1,31 @@
 import {computed, reactive, Ref} from 'vue'
 
-export function useSortable(data: Ref<[]>) {
+type SortableFunction<T> = ((a: T, b: T) => number)
 
-    const sortState = reactive({
+interface SortableEntry<T> {
+    [key: string]: true | SortableFunction<T>
+}
+
+type SortableConfig<T> = true | SortableEntry<T>
+
+type SortableDataset<T> = T[]
+
+type SortableState = {
+    header: string,
+    mode: string,
+}
+
+export function useSortable<T>(data: Ref<SortableDataset<T>>, sortable: Ref<SortableConfig<T>>) {
+
+    const sortState = reactive<SortableState>({
         header: '',
         mode: 'ascending',
     })
 
-    function changeSortState(header: string) {
+    function changeSortState(header: string): void {
+        if (!Object.keys(sortable.value).includes(header))
+            return
+
         if (header !== sortState.header) {
             sortState.header = header
             sortState.mode = 'ascending'
@@ -20,27 +38,35 @@ export function useSortable(data: Ref<[]>) {
         }
     }
 
-    function sortIcon(header: string) {
-        return sortState.header === header
-            ? sortState.mode
-            : 'candidate'
+    function sortIcon(header: string): string {
+        if (sortable.value === true || sortable.value.hasOwnProperty(header)) {
+            return sortState.header === header
+                ? sortState.mode
+                : 'candidate'
+        }
+
+        return ''
     }
 
-    function sortData(data: []) {
+    function sortData(data: SortableDataset<T>): SortableDataset<T> {
         if (sortState.header === '') {
             return data
         }
 
-        const sortedData = [...data].sort()
+        const sortFunctionCandidate = (sortable.value as SortableEntry<T>)[sortState.header] as SortableFunction<T>
 
-        if (sortState.mode === 'descending') {
-            return sortedData.reverse()
-        }
+        const sortFunction = typeof sortFunctionCandidate === 'function'
+            ? sortFunctionCandidate
+            : undefined
 
-        return sortedData
+        const sortedData = [...data].sort(sortFunction)
+
+        return sortState.mode === 'descending'
+            ? sortedData.reverse()
+            : sortedData
     }
 
     const sortedData = computed(() => sortData(data.value))
 
-    return {changeSortState, sortIcon, sortedData}
+    return {sortState, changeSortState, sortIcon, sortedData}
 }
