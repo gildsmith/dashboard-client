@@ -6,6 +6,21 @@ import {useSortable} from '../../composables/components/data/table/sortable'
 import DataTablePagination from './DataTablePagination.vue'
 import DataTableSortIcon from './DataTableSortIcon.vue'
 
+/* ---------------------------------------------------------------------------
+ * Data Table Component
+ * ---------------------------------------------------------------------------
+ * This component provides an accessible and feature-rich way to display data
+ * in table format. It supports sorting, pagination, and other advanced table
+ * actions, making it highly customizable and flexible for various use cases.
+ *
+ * The component is divided into smaller, encapsulated composables such as
+ * 'useSortable' for sorting and 'usePagination' for pagination, ensuring
+ * maintainability and scalability.
+ *
+ * Users can configure features like sorting, pagination, and more via props,
+ * and choose which to enable or disable dynamically.
+ */
+
 const props = defineProps({
     title: {default: ''},
     headers: {required: true, default: () => []},

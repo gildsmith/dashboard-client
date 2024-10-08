@@ -1,21 +1,13 @@
 import {computed, reactive, Ref} from 'vue'
 
-type SortableFunction<T> = ((a: T, b: T) => number)
-
-interface SortableEntry<T> {
-    [key: string]: true | SortableFunction<T>
-}
-
-type SortableConfig<T> = true | SortableEntry<T>
-
-type SortableDataset<T> = T[]
+import {SortableConfig, SortableEntry, SortableFunction, TableData} from '../../../../types/components/data/tableTypes'
 
 type SortableState = {
     header: string,
     mode: string,
 }
 
-export function useSortable<T>(data: Ref<SortableDataset<T>>, sortable: Ref<SortableConfig<T>>) {
+export function useSortable<T extends TableData>(data: Ref<T[]>, sortable: Ref<SortableConfig<T>>) {
 
     const sortState = reactive<SortableState>({
         header: '',
@@ -48,7 +40,7 @@ export function useSortable<T>(data: Ref<SortableDataset<T>>, sortable: Ref<Sort
         return ''
     }
 
-    function sortData(data: SortableDataset<T>): SortableDataset<T> {
+    function sortData(data: T[]): T[] {
         if (sortState.header === '') {
             return data
         }
@@ -68,5 +60,5 @@ export function useSortable<T>(data: Ref<SortableDataset<T>>, sortable: Ref<Sort
 
     const sortedData = computed(() => sortData(data.value))
 
-    return {sortState, changeSortState, sortIcon, sortedData}
+    return {changeSortState, sortIcon, sortedData}
 }

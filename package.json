@@ -40,5 +40,8 @@
     "typescript": "5.5",
     "vitest": "^2.1.2",
     "vue-eslint-parser": "^9.4.3"
+  },
+  "scripts": {
+    "test": "vitest"
   }
 }
